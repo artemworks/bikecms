@@ -1,6 +1,7 @@
 <?php
 
-function logIn($salt, $pdo, $name, $pass) {
+function logIn($salt, $name, $pass) {
+	global $pdo;
 
 	$check = hash('md5', $salt.$pass);
 	$stmt = $pdo->prepare('SELECT * FROM users WHERE name = :nm AND pass = :pw');
@@ -17,7 +18,7 @@ function logIn($salt, $pdo, $name, $pass) {
 		
 		$_SESSION['user_id'] = $row['user_id'];
 
-		if ( $row["is_active"] == 1 ) {
+		if ( $row["is_active"] ) {
 			if ( $row["priv"] == 2 ) {
 				$_SESSION['success'] = "Success! You are logged in as administrator " . $_SESSION["name"];
 				header("Location: cms/");
@@ -58,6 +59,32 @@ function flashMessages() {
 		echo('<p style="color: green;">' . htmlentities($_SESSION['success']) . "</p>\n");
 	    unset($_SESSION['success']);
 	}
+}
+
+function getArticles() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM article ORDER BY posted DESC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getArticleByUrl($title_url) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("SELECT * FROM article WHERE title_url = :turl LIMIT 1");
+	$stmt->execute(array(':turl' => $title_url));
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getSectionById($section_id) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("SELECT * FROM section WHERE section_id = :sid LIMIT 1");
+	$stmt->execute(array(':sid' => $section_id));
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $result;
 }
 
 ?>
