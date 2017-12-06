@@ -7,4 +7,6 @@ $salt = "Fw43c_29kkJK.";
 
 $dir_url = "bikecms";
 
+$cms_title = "BikeCMS";
+
 ?>
