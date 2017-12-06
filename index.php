@@ -134,6 +134,26 @@ switch ($page) {
 		require_once "./footer.php";
 		break;
 
+	case 'search':
+		require_once "./header.php";
+		
+		$search = searchArticle();
+		if ( !empty($search) ) {
+			echo "<p>Found " . count($search) . " entries:</p>";
+
+			foreach ($search as $result) {
+				$date = DateTime::createFromFormat('Y-m-d H:i:s', $result["posted"]);
+				$date = $date->format('M, n Y');
+				echo 
+					htmlentities($date) . " <a href=/" . $dir_url . "/articles/" .   
+					htmlentities($result["title_url"]) . ">" . 
+					htmlentities($result["title"]) . "</a><br>"
+				;
+			}
+		}
+		require_once "./footer.php";
+		break;
+
 	default:
 		require_once "./header.php";
 		

@@ -166,6 +166,12 @@ function getTagById($tag_id) {
 	return $result;
 }
 
+function searchArticle() {
+	global $pdo;
 
+	$stmt = $pdo->query("SELECT * FROM article WHERE body LIKE '%first%'");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
 
 ?>
