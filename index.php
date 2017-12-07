@@ -5,9 +5,15 @@ require_once "./cms/include/functions.php";
 session_start();
 flashMessages();
 
-isset($_GET["one"]) ? $page = htmlentities($_GET["one"]) : $page = "default";
+isset($_GET["one"]) ? $page = htmlentities($_GET["one"]) : $page = "homepage";
 
 switch ($page) {
+
+	case 'homepage':
+
+		require_once "./header_homepage.php";
+		require_once "./footer.php";
+		break;
 
 	case 'register':
 

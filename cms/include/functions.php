@@ -127,6 +127,14 @@ function getArticles() {
 	return $result;
 }
 
+function getLastThreeArticles() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM article ORDER BY posted DESC LIMIT 3");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
 function addArticle($posted, $archiving, $title, $title_url, $description, $body, $user_id, $is_active) {
 	global $pdo;
 	global $dir_url;

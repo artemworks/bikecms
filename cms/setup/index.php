@@ -64,10 +64,16 @@ $sql[] = "CREATE TABLE article (
 	)";
 
 $sql[] = "INSERT INTO article (posted, archiving, title, title_url, description, body, user_id, is_active) 
-		  VALUES ('2017-12-01 10:59:32', '2017-12-02 10:59:32', 'My first article', 'my-first-article', 
-		  	'Hello world, this is my first article', 
-		  	'Hello world, this is my first article. Congratulations!', 
-		  	1, 1)";
+		  VALUES ('2017-11-01 10:59:32', '2017-12-02 10:59:32', 'Welcome to the BikeCMS', 'welcome-to-the-bikecms', 
+		  	'Simple, fast and elegant solution', 
+		  	'Simple, fast and elegant solution', 1, 1),
+			('2017-10-01 10:59:32', '2017-12-02 10:59:32', 'Blogger Choice 2017', 'blogger-choice-2017', 
+		  	'Hello world, this is my first prize. Congratulations!', 
+		  	'Hello world, this is my first prize. Congratulations!', 1, 1),
+			('2017-09-01 10:59:32', '2017-12-02 10:59:32', 'Winning solution ready for you', 'winning-solution-ready-for-you', 
+		  	'Ridiculously easy to install and run', 
+		  	'Hello world, this is my first article. Congratulations!', 1, 1)
+		";
 
 $sql[] = "CREATE TABLE tags (
 	article_id	INT(11)         NOT NULL,
