@@ -16,28 +16,75 @@ switch ($page) {
 		        header("Location: ./");
 		        return;
 			}
+			if ( isset($_POST['cancel']) ) {
+				$_SESSION['success'] = "Registration cancelled";
+		        header("Location: ./");
+		        return;
+			}
 			if ( isset($_POST['reg_name']) && 
 				isset($_POST['reg_pass']) && 
 				isset($_POST['reg_real'])&& 
 				isset($_POST['reg_email']) ) {
 
-				addUser($_POST['reg_name'], $_POST['reg_pass'], $_POST['reg_real'], $_POST['reg_email']);
+				if ( !empty($_POST['reg_name']) && !empty($_POST['reg_pass']) 
+					&& !empty($_POST['reg_real']) && !empty($_POST['reg_email']) ) {
+
+					if ( strpos($_POST['reg_email'], '@') == true ) {
+
+						if ( strlen($_POST['reg_pass']) >= 6 ) {
+
+							addUser($_POST['reg_name'], $_POST['reg_pass'], $_POST['reg_real'], $_POST['reg_email']);
+
+						} else {
+							$_SESSION['error'] = "Password shold be at least 6 characters long";
+					        header("Location: ./register");
+					        return;
+						}
+					
+					} else {
+						$_SESSION['error'] = "Email must have an at-sign (@)";
+				        header("Location: ./register");
+				        return;
+					}
+
+				} else {
+					$_SESSION['error'] = "All fields are required";
+			        header("Location: ./register");
+			        return;	
+				}
 
 			}
 			require_once "./header.php";
 			echo '
-				<h1 class="display-4">Quick Registration</h1>
+				<h1 class="display-4">Registration</h1>
 				<form method="POST">
-				<label for="reg_name">Your Login</label>
-				<input type="text" name="reg_name"><br>
-				<label for="reg_pass">Your Password</label>
-				<input type="text" name="reg_pass"><br>
-				<label for="reg_real">Your Real Name</label>
-				<input type="text" name="reg_real"><br>
-				<label for="reg_email">Your Email</label>
-				<input type="text" name="reg_email"><br>
-				<input type="submit" name="submit" value="Register">
-				<input type="submit" name="cancel" value="Cancel">
+				<div class="row">
+					<div class="form-group col-md-6">
+					  <label for="email">Your Login</label>
+					  <input class="form-control" name="reg_name" type="text" aria-describedby="loginHelp" placeholder="Enter Your Login">
+					  <small id="loginHelp" class="form-text text-muted">Desired login in latin.</small>
+					</div>
+
+					<div class="form-group col-md-6">
+					  <label for="email">Real Name</label>
+					  <input class="form-control" name="reg_real" type="text" aria-describedby="nameHelp" placeholder="Enter Your Real Name">
+					  <small id="nameHelp" class="form-text text-muted">Real name. May be in cyrillic.</small>
+					</div>
+
+					<div class="form-group col-md-6">
+					  <label for="email">Password</label>
+					  <input class="form-control" name="reg_pass" type="password" aria-describedby="passHelp" placeholder="Enter Your Password">
+					  <small id="passHelp" class="form-text text-muted">At least 6 characters long.</small>
+					</div>
+
+					<div class="form-group col-md-6">
+					  <label for="email">Email address</label>
+					  <input class="form-control" type="email" name="reg_email" aria-describedby="emailHelp" placeholder="Enter email">
+					  <small id="emailHelp" class="form-text text-muted">We\'ll never share your email with anyone else.</small>
+					</div>
+				</div>
+				<input type="submit" class="btn btn-outline-primary" name="submit" value="Register">
+				<input type="submit" class="btn btn-outline-secondary" name="cancel" value="Cancel">
 				</form>
 			';
 			require_once "./footer.php";
@@ -50,20 +97,37 @@ switch ($page) {
 		        header("Location: ./");
 		        return;
 			}
+			if ( isset($_POST['cancel']) ) {
+				$_SESSION['success'] = "Login cancelled";
+		        header("Location: ./");
+		        return;
+			}
 			if ( isset($_POST['name']) && isset($_POST['pass']) ) {
-				logIn($salt, $_POST['name'], $_POST['pass']);
-			} 
+				if ( !empty($_POST['name']) && !empty($_POST['pass']) ) {
+					logIn($salt, $_POST['name'], $_POST['pass']);
+				} else {
+					$_SESSION['error'] = "Name and password can not be blank";
+			        header("Location: ./login");
+			        return;					
+				}
+			}
 			require_once "./header.php";
 			echo '
+				<div class="row"><div class="col-4">
 				<h1 class="display-4">Please Log In</h1>
 				<form method="POST">
-				<label for="name">Login</label>
-				<input type="text" name="name"><br>
-				<label for="pass">Password</label>
-				<input type="text" name="pass"><br>
-				<input type="submit" name="submit" value="Log In">
-				<input type="submit" name="cancel" value="Cancel">
+					<div class="form-group input-group margin-bottom-sm">
+					  <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+					  <input class="form-control" name="name" type="text" placeholder="Name">
+					</div>
+					<div class="form-group input-group">
+					  <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+					  <input class="form-control" name="pass" type="password" placeholder="Pass">
+					</div>
+				<input type="submit" class="btn btn-outline-primary" name="submit" value="Log In">
+				<input type="submit" class="btn btn-outline-secondary" name="cancel" value="Cancel">
 				</form>
+				</div></div>
 			';
 			require_once "./footer.php";
 		break;

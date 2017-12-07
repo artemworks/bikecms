@@ -143,6 +143,14 @@ function getTags() {
 	return $result;
 }
 
+function getUsers() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM users ORDER BY name ASC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
 function getArticleByUrl($title_url) {
 	global $pdo;
 
