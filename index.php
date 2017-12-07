@@ -9,6 +9,40 @@ isset($_GET["one"]) ? $page = htmlentities($_GET["one"]) : $page = "default";
 
 switch ($page) {
 
+	case 'register':
+
+			if ( isset($_SESSION["name"]) ) {
+				$_SESSION['error'] = "No need to register. You are already logged in!";
+		        header("Location: ./");
+		        return;
+			}
+			if ( isset($_POST['reg_name']) && 
+				isset($_POST['reg_pass']) && 
+				isset($_POST['reg_real'])&& 
+				isset($_POST['reg_email']) ) {
+
+				addUser($_POST['reg_name'], $_POST['reg_pass'], $_POST['reg_real'], $_POST['reg_email']);
+
+			}
+			require_once "./header.php";
+			echo '
+				<h1 class="display-4">Quick Registration</h1>
+				<form method="POST">
+				<label for="reg_name">Your Login</label>
+				<input type="text" name="reg_name"><br>
+				<label for="reg_pass">Your Password</label>
+				<input type="text" name="reg_pass"><br>
+				<label for="reg_real">Your Real Name</label>
+				<input type="text" name="reg_real"><br>
+				<label for="reg_email">Your Email</label>
+				<input type="text" name="reg_email"><br>
+				<input type="submit" name="submit" value="Register">
+				<input type="submit" name="cancel" value="Cancel">
+				</form>
+			';
+			require_once "./footer.php";
+		break;
+
 	case 'login':
 
 			if ( isset($_SESSION["name"]) ) {
@@ -17,7 +51,6 @@ switch ($page) {
 		        return;
 			}
 			if ( isset($_POST['name']) && isset($_POST['pass']) ) {
-				flashMessages();
 				logIn($salt, $_POST['name'], $_POST['pass']);
 			} 
 			require_once "./header.php";

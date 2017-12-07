@@ -1,13 +1,49 @@
 <?php
+
+function getUserById($user_id) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("SELECT * FROM users WHERE user_id = :uid LIMIT 1");
+	$stmt->execute(array(':uid' => $user_id));
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function addUser($reg_name, $reg_pass, $reg_real, $reg_email) {
+	global $pdo;
+	global $salt;
+
+	$saltedHash = hash('md5', $salt.$reg_pass);
+	$stmt = $pdo->prepare('INSERT INTO users (name, pass, real_name, email) VALUES (:nm, :pw, :rnm, :eml)');
+	$stmt->execute(array(':nm' => $reg_name, ':pw' => $saltedHash, ':rnm' => $reg_real, ':eml' => $reg_email));
+	$user_id = $pdo->lastInsertId();
+
+	if ( $user_id !== false && !empty($user_id) ) {
+
+		$_SESSION['user_id'] = $user_id;
+		$userArray = getUserById($user_id);
+		if (isset($userArray['real_name'])) {
+			$_SESSION["name"] = $userArray['real_name'];
+			header("Location: ./");
+        	return;
+		} else {
+			$_SESSION["name"] = $userArray['name'];
+			header("Location: ./");
+        	return;
+		}
+
+	}
+}
+
 function logIn($salt, $name, $pass) {
 	global $pdo;
 
 	$check = hash('md5', $salt.$pass);
 	$stmt = $pdo->prepare('SELECT * FROM users WHERE name = :nm AND pass = :pw');
-	$stmt->execute(array( ':nm' => $name, ':pw' => $check));
+	$stmt->execute(array(':nm' => $name, ':pw' => $check));
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 	
-	if ( $row !== false ) {
+	if ( $row !== false || !empty($row) ) {
 
 		if (isset($row['real_name'])) {
 			$_SESSION["name"] = $row['real_name'];
@@ -18,13 +54,9 @@ function logIn($salt, $name, $pass) {
 		$_SESSION['user_id'] = $row['user_id'];
 
 		if ( $row["is_active"] ) {
-			if ( $row["priv"] == 2 ) {
-				$_SESSION['success'] = "Success! You are logged in as administrator " . $_SESSION["name"];
-				header("Location: cms/");
-        		return;
-			} else if ( $row["priv"] == 1 ) {
-				$_SESSION['success'] = "Success! You are logged in as moderator " . $_SESSION["name"];
-				header("Location: ./");
+			if ( $row["priv"] ) {
+				$_SESSION['success'] = "Success! You are logged in as admininstrator " . $_SESSION["name"];
+				header("Location: ./cms");
         		return;
 			} else {
 				$_SESSION['success'] = "Success! You are logged in as user " . $_SESSION["name"];
@@ -38,7 +70,7 @@ function logIn($salt, $name, $pass) {
 		}
 
     } else {
-        $_SESSION['error'] = "Incorrect password";
+        $_SESSION['error'] = "Incorrect password for " . $name;
         header("Location: ./login");
         return;
     }
@@ -49,11 +81,28 @@ function logOut() {
 	header('Location: ./');
 }
 
+function restrictAccessCMS() {
+
+	if ( ! isset($_SESSION['name']) || strlen($_SESSION['name']) < 1  ) {
+        $_SESSION['error'] = "Forbidden. You are not logged in!";
+        header("Location: ../login");
+        return;
+	} else {
+		$user = getUserById($_SESSION['user_id']);
+		if ( !$user["priv"] ) {
+		    $_SESSION['error'] = "Forbidden. You are not allowed to enter this section!";
+		    header("Location: ../");
+		    return;
+		}
+	}
+}
+
 function userMessages() {
 	global $dir_url;
 
 	if ( ! isset($_SESSION['name']) || strlen($_SESSION['name']) < 1  ) {
 		echo "<a class='nav-link' href='/" . $dir_url . "/login'>Login</a>";
+		echo "<a class='nav-link' href='/" . $dir_url . "/register'>Register</a>";
 	} else {
 		echo "Hello, " . $_SESSION['name'] . " <a class=\"nav-link\" href='/" . $dir_url . "/logout'>Logout</a> ";
 	}

@@ -13,13 +13,16 @@ $sql[] = "CREATE TABLE users (
 	real_name	VARCHAR(255)    NOT NULL DEFAULT '',
 	email		VARCHAR(255)    NOT NULL DEFAULT '',
 	priv		TINYINT(1)      NOT NULL DEFAULT '0',
-	is_active	TINYINT(1)      NOT NULL DEFAULT '0',
+	is_active	TINYINT(1)      NOT NULL DEFAULT '1',
 	PRIMARY KEY (user_id)
 	)";
 
 
 // Password is a salted hash of 'demo' 
-$sql[] = "INSERT INTO users (name, pass, real_name, email, priv, is_active) VALUES ('demo', '" . hash('md5', $salt.'demo') . "', 'demo', 'demo@demo.demo', 0, 1)";
+$sql[] = "INSERT INTO users (name, pass, real_name, email, priv, is_active) 
+		  VALUES ('demo', '" . hash('md5', $salt.'demo') . "', 'demo', 'demo@demo.demo', 0, 1),
+		  		 ('admin', '" . hash('md5', $salt.'demo') . "', 'admin', 'admin@admin.admin', 1, 1)
+		  ";
 
 $sql[] = "CREATE TABLE section (
 	section_id		INT(11)         NOT NULL AUTO_INCREMENT,
