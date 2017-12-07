@@ -79,7 +79,7 @@ switch ($page) {
 
 					<div class="form-group col-md-6">
 					  <label for="email">Email address</label>
-					  <input class="form-control" type="email" name="reg_email" aria-describedby="emailHelp" placeholder="Enter email">
+					  <input class="form-control" type="email" name="reg_email" aria-describedby="emailHelp" placeholder="Enter email@youremail">
 					  <small id="emailHelp" class="form-text text-muted">We\'ll never share your email with anyone else.</small>
 					</div>
 				</div>

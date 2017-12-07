@@ -127,6 +127,37 @@ function getArticles() {
 	return $result;
 }
 
+function addArticle($posted, $archiving, $title, $title_url, $description, $body, $user_id, $is_active) {
+	global $pdo;
+	global $dir_url;
+
+	$stmt = $pdo->prepare("INSERT INTO Article (posted, archiving, title, title_url, description, body, user_id, is_active) 
+	              VALUES (:pos, :arc, :tit, :tiu, :des, :bod, :use, :ise)");
+
+	$stmt->execute(array(
+			':pos' => $posted,
+			':arc' => $archiving,
+			':tit' => $title,
+			':tiu' => $title_url,
+			':des' => $description,
+			':bod' => $body,
+			':use' => $user_id,
+			':ise' => $is_active)
+	    	);
+
+	$article_id = $pdo->lastInsertId();
+
+	if ( !$article_id || empty($article_id) ) {
+		$_SESSION["error"] = "Something bad happened";
+		header("Location: /".$dir_url."/cms/article/");
+        return;
+	} else {
+		$_SESSION["success"] = "Article Added";
+		header("Location: /".$dir_url."/cms/article/");
+        return;
+	}
+}
+
 function getSections() {
 	global $pdo;
 
