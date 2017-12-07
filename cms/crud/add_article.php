@@ -6,16 +6,16 @@
         <div class="form-row">
           <div class="form-group col-md-10">
             <label for="title">Title</label>
-            <input type="text" name="title" class="form-control">
+            <input type="text" name="title" class="form-control" Placeholder="Very good bike">
 
             <label for="title">Title URL</label>
-            <input type="text" name="title_url" class="form-control">
+            <input type="text" name="title_url" class="form-control" Placeholder="very-good-bike">
 
             <label for="title">Description</label>
-            <input type="text" name="description" class="form-control">
+            <input type="text" name="description" class="form-control" Placeholder="I got you my bike, yeah">
 
             <label for="body">Body</label>
-            <textarea class="form-control" type="text" name="body" rows="7"></textarea>
+            <textarea class="form-control" type="text" name="body" rows="7" Placeholder="Just want to say something good about my bike"></textarea>
           </div>
 
           <div class="form-group col-md-2">

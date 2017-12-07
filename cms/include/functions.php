@@ -158,6 +158,51 @@ function addArticle($posted, $archiving, $title, $title_url, $description, $body
 	}
 }
 
+function updateArticle($article_id, $posted, $archiving, $title, $title_url, $description, $body, $user_id, $is_active) {
+	global $pdo;
+	global $dir_url;
+
+	$stmt = $pdo->prepare("UPDATE Article SET 
+				 posted = :pos, 
+				 archiving = :arc, 
+				 title = :tit, 
+				 title_url = :tiu, 
+				 description = :des, 
+				 body = :bod, 
+				 user_id = :uid, 
+				 is_active = :isa 
+	             WHERE article_id = :aid
+	             ");
+
+	$stmt->execute(array(
+			':pos' => $posted,
+			':arc' => $archiving,
+			':tit' => $title,
+			':tiu' => $title_url,
+			':des' => $description,
+			':bod' => $body,
+			':uid' => $user_id,
+			':isa' => $is_active,
+			':aid' => $article_id)
+	    	);
+
+	$_SESSION['success'] = "Article updated";
+	header("Location: /".$dir_url."/cms/article/");
+    return;
+}
+
+function deleteArticle($article_id) {
+	global $pdo;
+	global $dir_url;
+	
+	$stmt = $pdo->prepare("DELETE FROM Article WHERE article_id = :aid");
+	$stmt->execute(array( ':aid' => $article_id ));
+	
+	$_SESSION['success'] = "Article deleted";
+	header("Location: /".$dir_url."/cms/article/");
+	return;
+}
+
 function getSections() {
 	global $pdo;
 

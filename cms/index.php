@@ -17,39 +17,68 @@ switch ($page) {
         header("Location: /".$dir_url."/cms/");
         return;
     }
-    if ( isset($_POST["posted"]) && isset($_POST["archiving"]) &&
-        isset($_POST["title"]) && isset($_POST["title_url"]) &&
-        isset($_POST["description"]) && isset($_POST["body"]) &&
-        isset($_POST["user_id"]) && isset($_POST["is_active"]) ) {
-
-        addArticle(
-          $_POST["posted"], $_POST["archiving"], 
-          $_POST["title"], $_POST["title_url"], 
-          $_POST["description"], $_POST["body"], 
-          $_POST["user_id"], $_POST["is_active"]);
-    }
     
-    require_once "./header.php";
-
       $url = htmlentities($_GET["two"]);
+      $urlArr = explode("/", ltrim($url, '/'));
+      isset($urlArr[1]) && is_numeric($urlArr[1]) ? $article_id = $urlArr[1] : false;
+
+      if ( $url === "/" || $url === "") {
+
+        if ( isset($_POST['article_id']) && isset($_POST['delete'])) {
+          header("Location: /".$dir_url."/cms/article/delete/".$_POST['article_id']);
+          return;
+        }
+        require_once __DIR__ . "/header.php";
+        require_once "./crud/view_article.php";
+
+      }
 
       if ( $url === "/add") {
 
+        if ( isset($_POST["posted"]) && isset($_POST["archiving"]) &&
+            isset($_POST["title"]) && isset($_POST["title_url"]) &&
+            isset($_POST["description"]) && isset($_POST["body"]) &&
+            isset($_POST["user_id"]) && isset($_POST["is_active"]) ) {
+
+            addArticle(
+              $_POST["posted"], $_POST["archiving"], 
+              $_POST["title"], $_POST["title_url"], 
+              $_POST["description"], $_POST["body"], 
+              $_POST["user_id"], $_POST["is_active"]);
+        }
+
+        require_once __DIR__ . "/header.php";
         require_once "./crud/add_article.php";
 
-      } else if ( $url === "/" || $url === "") {
-        
-        require_once "./crud/view_article.php";
+      } 
 
-      } else {
+      if ( $urlArr[0] === "edit" && !empty($article_id) ) {
 
-        $urlArr = explode("/", ltrim($url, '/'));
+          if ( isset($_POST["posted"]) && isset($_POST["archiving"]) &&
+              isset($_POST["title"]) && isset($_POST["title_url"]) &&
+              isset($_POST["description"]) && isset($_POST["body"]) &&
+              isset($_POST["user_id"]) && isset($_POST["is_active"]) ) {
 
-        if ( !empty($urlArr[1]) ) {
-          require_once "./crud/edit_article.php";
-        } else if ( $urlArr[0] === "edit" || $urlArr[1] === "" ) {
-          echo "You wanna edit something?";
-        } 
+              updateArticle(
+                $article_id, $_POST["posted"], $_POST["archiving"], 
+                $_POST["title"], $_POST["title_url"], 
+                $_POST["description"], $_POST["body"], 
+                $_POST["user_id"], $_POST["is_active"]);
+          }
+
+      require_once __DIR__ . "/header.php";
+      require_once "./crud/edit_article.php";
+
+      }  
+
+      if ( $urlArr[0] === "delete" && !empty($article_id) ) {
+
+          if ( isset($_POST["article_id"]) && isset($_POST["submit"]) ) {
+              deleteArticle($_POST["article_id"]);
+          } 
+
+      require_once __DIR__ . "/header.php";
+      require_once "./crud/delete_article.php";
 
       }
 
