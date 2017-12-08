@@ -1,5 +1,10 @@
 <?php
 
+function redirect_to($new_location) {
+	header("Location: " . $new_location);
+	exit;
+}
+
 function getArticles() {
 	global $pdo;
 
@@ -78,11 +83,10 @@ function getUserById($user_id) {
 
 function addUser($reg_name, $reg_pass, $reg_real, $reg_email) {
 	global $pdo;
-	global $salt;
 
-	$saltedHash = hash('md5', $salt.$reg_pass);
+	$hashedPass = password_encrypt($reg_pass);
 	$stmt = $pdo->prepare('INSERT INTO users (name, pass, real_name, email) VALUES (:nm, :pw, :rnm, :eml)');
-	$stmt->execute(array(':nm' => $reg_name, ':pw' => $saltedHash, ':rnm' => $reg_real, ':eml' => $reg_email));
+	$stmt->execute(array(':nm' => $reg_name, ':pw' => $hashedPass, ':rnm' => $reg_real, ':eml' => $reg_email));
 	$user_id = $pdo->lastInsertId();
 
 	if ( $user_id !== false && !empty($user_id) ) {
@@ -102,15 +106,40 @@ function addUser($reg_name, $reg_pass, $reg_real, $reg_email) {
 	}
 }
 
-function logIn($salt, $name, $pass) {
+function password_encrypt($password) {
+	$hash_format = "$2y$10$"; // Blowfish hash - 2y, how many times run - 10
+	$salt_length = 22; // Salts always should be 22 characters or more
+	$salt = generate_salt($salt_length);
+	$format_and_salt = $hash_format . $salt;
+	$hash = crypt($password, $format_and_salt);
+	return $hash;
+}
+
+function generate_salt($length) {
+	$unique_random_string = md5(uniqid(mt_rand(), true));
+	$base64_string = base64_encode($unique_random_string);
+	$modified_base64_string = str_replace('+', '.', $base64_string);
+	$salt = substr($modified_base64_string, 0, $length);
+	return $salt;
+}
+
+function password_check($password, $existing_hash) {
+	$hash = crypt($password, $existing_hash);
+	if ($hash === $existing_hash) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function logIn($name, $pass) {
 	global $pdo;
 
-	$check = hash('md5', $salt.$pass);
-	$stmt = $pdo->prepare('SELECT * FROM users WHERE name = :nm AND pass = :pw');
-	$stmt->execute(array(':nm' => $name, ':pw' => $check));
+	$stmt = $pdo->prepare('SELECT * FROM users WHERE name = :nm LIMIT 1');
+	$stmt->execute(array(':nm' => $name));
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 	
-	if ( $row !== false || !empty($row) ) {
+	if ( password_check($pass, $row["pass"]) ) {
 
 		if (isset($row['real_name'])) {
 			$_SESSION["name"] = $row['real_name'];
@@ -230,7 +259,6 @@ function getArticleSections($article_id) {
 	return $result;
 }
 
-
 function getArticleTags($article_id) {
 	global $pdo;
 
@@ -239,8 +267,6 @@ function getArticleTags($article_id) {
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $result;
 }
-
-
 
 function searchArticle() {
 	global $pdo;

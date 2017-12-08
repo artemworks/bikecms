@@ -110,7 +110,9 @@ switch ($page) {
 			}
 			if ( isset($_POST['name']) && isset($_POST['pass']) ) {
 				if ( !empty($_POST['name']) && !empty($_POST['pass']) ) {
-					logIn($salt, $_POST['name'], $_POST['pass']);
+
+					logIn($_POST['name'], $_POST['pass']);
+					
 				} else {
 					$_SESSION['error'] = "Name and password can not be blank";
 			        header("Location: ./login");

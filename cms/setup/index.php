@@ -20,8 +20,8 @@ $sql[] = "CREATE TABLE users (
 
 // Password is a salted hash of 'demo' 
 $sql[] = "INSERT INTO users (name, pass, real_name, email, priv, is_active) 
-		  VALUES ('demo', '" . hash('md5', $salt.'demo') . "', 'demo', 'demo@demo.demo', 0, 1),
-		  		 ('admin', '" . hash('md5', $salt.'demo') . "', 'admin', 'admin@admin.admin', 1, 1)
+		  VALUES ('demo', '". password_encrypt('demo') . "', 'demo', 'demo@demo.demo', 0, 1),
+		  		 ('admin', '". password_encrypt('demo') . "', 'admin', 'admin@admin.admin', 1, 1)
 		  ";
 
 $sql[] = "CREATE TABLE section (

@@ -1,5 +1,4 @@
 <?php
-
 if ( isset($_POST['cancel']) ) {
   $_SESSION['success'] = "Cancelled";
   header("Location: " . DIR_URL . "cms");

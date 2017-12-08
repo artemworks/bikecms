@@ -24,13 +24,12 @@ if ( $activity === "add" ) {
        isset($_POST["real_name"]) && isset($_POST["email"]) &&
        isset($_POST["priv"]) && isset($_POST["is_active"]) ) {
 
-                  $reg_pass = $_POST["pass"];
-                  $saltedHash = hash('md5', $salt.$reg_pass);
+                  $hashedPass = password_encrypt($_POST["pass"]);
                   $stmt = $pdo->prepare('INSERT INTO users (name, pass, real_name, email, priv, is_active) 
                                               VALUES (:nm, :pw, :rnm, :eml, :pri, :isa)');
                   $stmt->execute(array(
                     ':nm' => $_POST["name"], 
-                    ':pw' => $saltedHash, 
+                    ':pw' => $hashedPass, 
                     ':rnm' => $_POST["real_name"], 
                     ':eml' => $_POST["email"],
                     ':pri' => $_POST["priv"],
@@ -66,9 +65,7 @@ if ( $activity === "edit" && !empty($activity_id) ) {
                isset($_POST["real_name"]) && isset($_POST["email"]) &&
                isset($_POST["priv"]) && isset($_POST["is_active"]) ) {
 
-
-                  $reg_pass = $_POST["pass"];
-                  $saltedHash = hash('md5', $salt.$reg_pass);
+                  $hashedPass = password_encrypt($_POST["pass"]);
 
                   $stmt = $pdo->prepare("UPDATE users SET 
                          name = :nm, 
@@ -82,7 +79,7 @@ if ( $activity === "edit" && !empty($activity_id) ) {
 
                   $stmt->execute(array(
                       ':nm' => $_POST["name"],
-                      ":pw" => $saltedHash,
+                      ":pw" => $hashedPass,
                       ":rnm" => $_POST["real_name"],
                       ":eml" => $_POST["email"], 
                       ":pri" => $_POST["priv"],
