@@ -32,7 +32,7 @@
 			?>
 	    </ul>
 	    <?= "<span class=\"navbar-text\">" . userMessages() . "</span>" ?>
-	    <form class="form-inline my-2 my-lg-0" action="search" method="POST">
+	    <form class="form-inline my-2 my-lg-0" action="<?= DIR_URL ?>search" method="POST">
 	      <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
 	      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" name="search">Search</button>
 	    </form>
