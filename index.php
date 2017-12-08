@@ -171,17 +171,17 @@ switch ($page) {
 			$date = $date->format('D M, n Y g:i a');
 			echo 
 				"<h1 class=\"display-4\">" . htmlentities($article["title"]) . "</h1>" . 
-				"<strong>" . htmlentities($article["description"]) . "</strong>" . 
-				"<p><i>" . htmlentities($date) . "</i></p>" . 
-				"<p>" . htmlentities($article["body"]) . "</p>"
+				"<strong>" . $article["description"] . "</strong>" . 
+				"<p><i>" . $date . "</i></p>" . 
+				"<p>" . nl2br($article["body"]) . "</p>"
 			;
 			
 			$sections = getArticleSections($article["article_id"]);
 			if (!empty($sections)) {
 				echo "<p>Sections: ";
 				foreach ($sections as $section) {
-					$sectionArray = getSectionById($section["section_id"])[0];
-					echo "<a href='/" . $dir_url . "/" . $sectionArray["page"] . "'>" . $sectionArray["title"] . "</a> ";
+					$sectionArray = getSectionById($section["section_id"]);
+					echo "<a href='" . $dir_url . $sectionArray["page"] . "' class='badge badge-pill badge-light'>" . $sectionArray["title"] . "</a> ";
 				}
 				echo "</p>";
 			}
@@ -190,8 +190,8 @@ switch ($page) {
 			if (!empty($tags)) {
 				echo "<p>Tags: ";
 				foreach ($tags as $tag) {
-					$tagArray = getTagById($tag["tag_id"])[0];
-					echo "<a href='/" . $dir_url . "/tags/" . $tagArray["name"] . "'>" . $tagArray["name"] . "</a> ";
+					$tagArray = getTagById($tag["tag_id"]);
+					echo "<a href='" . $dir_url . "tags/" . $tagArray["name"] . "' class='badge badge-pill badge-light'>" . $tagArray["name"] . "</a> ";
 				}
 				echo "</p>";
 			}
@@ -206,16 +206,18 @@ switch ($page) {
 		if ( ! $_GET["two"] || $_GET["two"] == "/" ) {
 			echo "<h1 class=\"display-4\">My Tags</h1>";
 			$tags = getTags();
+			echo "<h5>";
 			foreach ($tags as $tag) {
 				if ( $tag["is_active"] ) {
 					echo 
-						"<a href=/" . $dir_url . "/" . 
+						"<a href=" . $dir_url . 
 						htmlentities($page) . "/" . 
-						htmlentities($tag["name"]) . ">" . 
+						htmlentities($tag["name"]) . " class='badge badge-pill badge-info'>" . 
 						htmlentities($tag["name"]) . "</a> "
 					;
 				}
 			}
+			echo "</h5>";
 		}
 		else if ( $_GET["two"] ) {
 			$name = htmlentities(ltrim($_GET["two"], '/'));
@@ -229,7 +231,7 @@ switch ($page) {
 				$date = $date->format('M, n Y');
 
 					echo 
-						htmlentities($date) . " <a href=/" . $dir_url . "/articles/" .   
+						htmlentities($date) . " <a href=" . $dir_url . "articles/" .   
 						htmlentities($articleArr["title_url"]) . ">" . 
 						htmlentities($articleArr["title"]) . "</a><br>"
 					;
