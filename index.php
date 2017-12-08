@@ -121,8 +121,8 @@ switch ($page) {
 			}
 			require_once "./header.php";
 			echo '
-				<div class="row"><div class="col-4">
-				<h1 class="display-4">Please Log In</h1>
+				<div class="row justify-content-md-center"><div class="col-md-4">
+				<h1 class="display-4">Log In</h1>
 				<form method="POST">
 					<div class="form-group input-group margin-bottom-sm">
 					  <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
@@ -244,15 +244,21 @@ switch ($page) {
 	case 'search':
 		require_once "./header.php";
 		
-		$search = searchArticle();
-		if ( !empty($search) ) {
-			echo "<p>Found " . count($search) . " entries:</p>";
+		if ( isset($_POST["q"]) ) {
+			$searchTerm = htmlentities($_POST["q"]);
+			$searchResult = searchArticle($searchTerm);
+		} else {
+			echo "Try to search something";
+		}
 
-			foreach ($search as $result) {
+		if ( !empty($searchResult) ) {
+			echo "<p>Found " . count($searchResult) . " entries:</p>";
+
+			foreach ($searchResult as $result) {
 				$date = DateTime::createFromFormat('Y-m-d H:i:s', $result["posted"]);
 				$date = $date->format('M, n Y');
 				echo 
-					htmlentities($date) . " <a href=/" . $dir_url . "/articles/" .   
+					htmlentities($date) . " <a href=" . $dir_url . "articles/" .   
 					htmlentities($result["title_url"]) . ">" . 
 					htmlentities($result["title"]) . "</a><br>"
 				;

@@ -268,10 +268,11 @@ function getArticleTags($article_id) {
 	return $result;
 }
 
-function searchArticle() {
+function searchArticle($q) {
 	global $pdo;
 
-	$stmt = $pdo->query("SELECT * FROM article WHERE body LIKE '%first%'");
+	$stmt = $pdo->prepare("SELECT * FROM article WHERE title LIKE :searchTerm");
+	$stmt->execute(array(':searchTerm' => '%'.$q.'%'));
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $result;
 }

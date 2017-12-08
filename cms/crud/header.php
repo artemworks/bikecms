@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="<?= $dir_url ?>assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= $dir_url ?>assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= $dir_url ?>assets/css/fontawesome-all.min.css">
   </head>
   <body>
 
@@ -13,7 +13,7 @@
 
 	<div class="container">
 
-	  <a class="navbar-brand" href="<?= $dir_url ?>cms/">Dashboard</a>
+	  <a class="navbar-brand" href="<?= $dir_url ?>cms/">Dashboard</a> <i class="fa fa-bicycle fa-lg"></i> 
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>

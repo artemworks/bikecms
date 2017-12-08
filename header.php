@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="<?= DIR_URL ?>assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= DIR_URL ?>assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= DIR_URL ?>assets/css/fontawesome-all.min.css">
   </head>
   <body>
 
@@ -30,9 +30,9 @@
 			?>
 	    </ul>
 	    <?= "<span class=\"navbar-text\">" . userMessages() . "</span>" ?>
-	    <form class="form-inline my-2 my-lg-0" action="search" method="GET">
+	    <form class="form-inline my-2 my-lg-0" method="POST">
 	      <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
-	      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+	      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" name="search">Search</button>
 	    </form>
 	  </div>
 
