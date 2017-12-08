@@ -5,7 +5,10 @@ ini_set('display_errors', '1');
 
 $salt = "Fw43c_29kkJK.";
 
-$dir_url = "bikecms";
+define("DIR", "/Users/artadmin/Desktop/bikecms/");
+define("DIR_URL", "http://localhost:8005/bikecms/");
+
+$dir_url = "http://localhost:8005/bikecms/";
 
 $cms_title = "BikeCMS";
 

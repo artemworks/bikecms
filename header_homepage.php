@@ -4,8 +4,8 @@
     <title><?= $cms_title ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/<?= $dir_url ?>/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/<?= $dir_url ?>/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= DIR_URL ?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= DIR_URL ?>assets/css/font-awesome.min.css">
   </head>
   <body>
 
@@ -13,7 +13,7 @@
 
 	<div class="container">
 
-	  <a class="navbar-brand" href="/<?= $dir_url ?>/"><?= $cms_title ?></a>
+	  <a class="navbar-brand" href="<?= DIR_URL ?>"><?= $cms_title ?></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -24,7 +24,7 @@
 				$sections = getSections();
 				foreach ($sections as $section) {
 					if ( $section["is_active"] ) {
-						echo "<li class=\"nav-item\"><a class=\"nav-link\" href='/" . $dir_url . "/" . $section["page"] . "'>" . $section["title"] . "</a></li>";
+						echo "<li class=\"nav-item\"><a class=\"nav-link\" href='" . DIR_URL . $section["page"] . "'>" . $section["title"] . "</a></li>";
 					}
 				}
 
@@ -54,14 +54,14 @@
 		foreach ($threeArticles as $art) {
 		$i++;
 			echo '<div class="carousel-item ';
-				if ( $i==1 ) { echo "active"; }
-					echo '">
-						  <img class="d-block w-100" src="assets/img/01.jpg" alt="..." style="-webkit-filter: grayscale(80%); filter: grayscale(80%);">
-						  <div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.6);">
-						    <h1 class="display-4" style="text-shadow: 1px 1px #000000;">' . $art["title"] . '</h1>
+			if ( $i==1 ) { echo "active"; }
+				echo '">
+					<img class="d-block w-100" src="assets/img/0' . $i . '.jpg" alt="..." style="-webkit-filter: grayscale(80%); filter: grayscale(80%);">
+						<div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.6);">
+						    <h1 class="display-4" style="text-shadow: 1px 1px #000000;">' . "<a href='articles/" . $art["title_url"] . "' style='text-decoration:none;color:#ffffff'>" . $art["title"] . '</a></h1>
 						    <p style="text-shadow: 1px 1px #000000;">' . $art["description"] . '</p>
-						  </div>
 						</div>
+					</div>
 				';
 		}
 		?>

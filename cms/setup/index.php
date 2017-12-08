@@ -59,8 +59,7 @@ $sql[] = "CREATE TABLE article (
 	body 		MEDIUMTEXT      NOT NULL,
 	user_id 	INT(11)         NOT NULL,
 	is_active 	TINYINT(1)      NOT NULL DEFAULT '0',
-	PRIMARY KEY (article_id),
-	FOREIGN KEY (user_id) REFERENCES users (user_id)
+	PRIMARY KEY (article_id)
 	)";
 
 $sql[] = "INSERT INTO article (posted, archiving, title, title_url, description, body, user_id, is_active) 

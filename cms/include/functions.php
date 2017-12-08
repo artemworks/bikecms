@@ -1,5 +1,72 @@
 <?php
 
+function getArticles() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM article ORDER BY posted DESC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getArticlesSortedIdDesc() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM article ORDER BY article_id DESC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getTags() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM tag ORDER BY name ASC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getSections() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM section ORDER BY rank ASC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getUsers() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM users ORDER BY name ASC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getArticleById($article_id) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("SELECT * FROM article WHERE article_id = :aid LIMIT 1");
+	$stmt->execute(array(':aid' => $article_id));
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getTagById($tag_id) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("SELECT * FROM tag WHERE tag_id = :tid");
+	$stmt->execute(array(':tid' => $tag_id));
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getSectionById($section_id) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("SELECT * FROM section WHERE section_id = :sid");
+	$stmt->execute(array(':sid' => $section_id));
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $result;
+}
+
 function getUserById($user_id) {
 	global $pdo;
 
@@ -101,10 +168,10 @@ function userMessages() {
 	global $dir_url;
 
 	if ( ! isset($_SESSION['name']) || strlen($_SESSION['name']) < 1  ) {
-		echo "<a class='nav-link' href='/" . $dir_url . "/login'>Login</a>";
-		echo "<a class='nav-link' href='/" . $dir_url . "/register'>Register</a>";
+		echo "<a class='nav-link' href='" . $dir_url . "login'>Login</a>";
+		echo "<a class='nav-link' href='" . $dir_url . "register'>Register</a>";
 	} else {
-		echo "Hello, " . $_SESSION['name'] . " <a class=\"nav-link\" href='/" . $dir_url . "/logout'>Logout</a> ";
+		echo "Hello, " . $_SESSION['name'] . " <a class=\"nav-link\" href='" . $dir_url . "logout'>Logout</a> ";
 	}
 }
 
@@ -119,118 +186,10 @@ function flashMessages() {
 	}
 }
 
-function getArticles() {
-	global $pdo;
-
-	$stmt = $pdo->query("SELECT * FROM article ORDER BY posted DESC");
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	return $result;
-}
-
 function getLastThreeArticles() {
 	global $pdo;
 
 	$stmt = $pdo->query("SELECT * FROM article ORDER BY posted DESC LIMIT 3");
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	return $result;
-}
-
-function addArticle($posted, $archiving, $title, $title_url, $description, $body, $user_id, $is_active) {
-	global $pdo;
-	global $dir_url;
-
-	$stmt = $pdo->prepare("INSERT INTO Article (posted, archiving, title, title_url, description, body, user_id, is_active) 
-	              VALUES (:pos, :arc, :tit, :tiu, :des, :bod, :use, :ise)");
-
-	$stmt->execute(array(
-			':pos' => $posted,
-			':arc' => $archiving,
-			':tit' => $title,
-			':tiu' => $title_url,
-			':des' => $description,
-			':bod' => $body,
-			':use' => $user_id,
-			':ise' => $is_active)
-	    	);
-
-	$article_id = $pdo->lastInsertId();
-
-	if ( !$article_id || empty($article_id) ) {
-		$_SESSION["error"] = "Something bad happened";
-		header("Location: /".$dir_url."/cms/article/");
-        return;
-	} else {
-		$_SESSION["success"] = "Article Added";
-		header("Location: /".$dir_url."/cms/article/");
-        return;
-	}
-}
-
-function updateArticle($article_id, $posted, $archiving, $title, $title_url, $description, $body, $user_id, $is_active) {
-	global $pdo;
-	global $dir_url;
-
-	$stmt = $pdo->prepare("UPDATE Article SET 
-				 posted = :pos, 
-				 archiving = :arc, 
-				 title = :tit, 
-				 title_url = :tiu, 
-				 description = :des, 
-				 body = :bod, 
-				 user_id = :uid, 
-				 is_active = :isa 
-	             WHERE article_id = :aid
-	             ");
-
-	$stmt->execute(array(
-			':pos' => $posted,
-			':arc' => $archiving,
-			':tit' => $title,
-			':tiu' => $title_url,
-			':des' => $description,
-			':bod' => $body,
-			':uid' => $user_id,
-			':isa' => $is_active,
-			':aid' => $article_id)
-	    	);
-
-	$_SESSION['success'] = "Article updated";
-	header("Location: /".$dir_url."/cms/article/");
-    return;
-}
-
-function deleteArticle($article_id) {
-	global $pdo;
-	global $dir_url;
-	
-	$stmt = $pdo->prepare("DELETE FROM Article WHERE article_id = :aid");
-	$stmt->execute(array( ':aid' => $article_id ));
-	
-	$_SESSION['success'] = "Article deleted";
-	header("Location: /".$dir_url."/cms/article/");
-	return;
-}
-
-function getSections() {
-	global $pdo;
-
-	$stmt = $pdo->query("SELECT * FROM section ORDER BY rank ASC");
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	return $result;
-}
-
-function getTags() {
-	global $pdo;
-
-	$stmt = $pdo->query("SELECT * FROM tag ORDER BY name ASC");
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	return $result;
-}
-
-function getUsers() {
-	global $pdo;
-
-	$stmt = $pdo->query("SELECT * FROM users ORDER BY name ASC");
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $result;
 }
@@ -240,15 +199,6 @@ function getArticleByUrl($title_url) {
 
 	$stmt = $pdo->prepare("SELECT * FROM article WHERE title_url = :turl LIMIT 1");
 	$stmt->execute(array(':turl' => $title_url));
-	$result = $stmt->fetch(PDO::FETCH_ASSOC);
-	return $result;
-}
-
-function getArticleById($article_id) {
-	global $pdo;
-
-	$stmt = $pdo->prepare("SELECT * FROM article WHERE article_id = :aid LIMIT 1");
-	$stmt->execute(array(':aid' => $article_id));
 	$result = $stmt->fetch(PDO::FETCH_ASSOC);
 	return $result;
 }
@@ -280,14 +230,6 @@ function getArticleSections($article_id) {
 	return $result;
 }
 
-function getSectionById($section_id) {
-	global $pdo;
-
-	$stmt = $pdo->prepare("SELECT * FROM section WHERE section_id = :sid");
-	$stmt->execute(array(':sid' => $section_id));
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	return $result;
-}
 
 function getArticleTags($article_id) {
 	global $pdo;
@@ -298,14 +240,7 @@ function getArticleTags($article_id) {
 	return $result;
 }
 
-function getTagById($tag_id) {
-	global $pdo;
 
-	$stmt = $pdo->prepare("SELECT * FROM tag WHERE tag_id = :tid");
-	$stmt->execute(array(':tid' => $tag_id));
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	return $result;
-}
 
 function searchArticle() {
 	global $pdo;

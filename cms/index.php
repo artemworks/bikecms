@@ -6,97 +6,34 @@ session_start();
 restrictAccessCMS();
 flashMessages();
 
-isset($_GET["one"]) ? $page = htmlentities($_GET["one"]) : $page = "default";
+// URL for CMS is structured as /$section/$activity/$activity_id
 
-switch ($page) {
+isset($_GET["one"]) ? $section = htmlentities($_GET["one"]) : $section = "";
+isset($_GET["one"]) ? $activity =  htmlentities($_GET["two"]) : $activity = "";
+
+$arrayOfActivities = explode("/", ltrim($activity, '/'));
+
+isset($arrayOfActivities[0]) && !is_numeric($arrayOfActivities[0]) ? $activity = $arrayOfActivities[0] : false;
+isset($arrayOfActivities[1]) && is_numeric($arrayOfActivities[1]) ? $activity_id = $arrayOfActivities[1] : false;
+
+// Routing
+
+switch ($section) {
 
   case 'article':
-
-    if ( isset($_POST['cancel']) ) {
-      $_SESSION['success'] = "Cancelled";
-        header("Location: /".$dir_url."/cms/");
-        return;
-    }
-    
-      $url = htmlentities($_GET["two"]);
-      $urlArr = explode("/", ltrim($url, '/'));
-      isset($urlArr[1]) && is_numeric($urlArr[1]) ? $article_id = $urlArr[1] : false;
-
-      if ( $url === "/" || $url === "") {
-
-        if ( isset($_POST['article_id']) && isset($_POST['delete'])) {
-          header("Location: /".$dir_url."/cms/article/delete/".$_POST['article_id']);
-          return;
-        }
-        require_once __DIR__ . "/header.php";
-        require_once "./crud/view_article.php";
-
-      }
-
-      if ( $url === "/add") {
-
-        if ( isset($_POST["posted"]) && isset($_POST["archiving"]) &&
-            isset($_POST["title"]) && isset($_POST["title_url"]) &&
-            isset($_POST["description"]) && isset($_POST["body"]) &&
-            isset($_POST["user_id"]) && isset($_POST["is_active"]) ) {
-
-            addArticle(
-              $_POST["posted"], $_POST["archiving"], 
-              $_POST["title"], $_POST["title_url"], 
-              $_POST["description"], $_POST["body"], 
-              $_POST["user_id"], $_POST["is_active"]);
-        }
-
-        require_once __DIR__ . "/header.php";
-        require_once "./crud/add_article.php";
-
-      } 
-
-      if ( $urlArr[0] === "edit" && !empty($article_id) ) {
-
-          if ( isset($_POST["posted"]) && isset($_POST["archiving"]) &&
-              isset($_POST["title"]) && isset($_POST["title_url"]) &&
-              isset($_POST["description"]) && isset($_POST["body"]) &&
-              isset($_POST["user_id"]) && isset($_POST["is_active"]) ) {
-
-              updateArticle(
-                $article_id, $_POST["posted"], $_POST["archiving"], 
-                $_POST["title"], $_POST["title_url"], 
-                $_POST["description"], $_POST["body"], 
-                $_POST["user_id"], $_POST["is_active"]);
-          }
-
-      require_once __DIR__ . "/header.php";
-      require_once "./crud/edit_article.php";
-
-      }  
-
-      if ( $urlArr[0] === "delete" && !empty($article_id) ) {
-
-          if ( isset($_POST["article_id"]) && isset($_POST["submit"]) ) {
-              deleteArticle($_POST["article_id"]);
-          } 
-
-      require_once __DIR__ . "/header.php";
-      require_once "./crud/delete_article.php";
-
-      }
-
-    require_once "./footer.php";
-
+    require_once "./crud/article.php";
     break;
-
   case 'tag':
-    echo "tag";
+    require_once "./crud/tag.php";
     break;
   case 'section':
-    echo "section";
+    require_once "./crud/section.php";
     break;
   case 'user':
     echo "user";
     break;
   default:
-    require_once "./header.php";
+    require_once DIR . "cms/crud/header.php";
 ?>
 
       <div class="row">
@@ -157,7 +94,7 @@ switch ($page) {
 
 
 <?php
-  require_once "./footer.php";
+    require_once DIR . "cms/crud/footer.php";
     break;
 }
 ?>
