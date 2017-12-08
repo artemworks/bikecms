@@ -30,7 +30,7 @@ switch ($section) {
     require_once "./crud/section.php";
     break;
   case 'user':
-    echo "user";
+    require_once "./crud/users.php";
     break;
   default:
     require_once DIR . "cms/crud/header.php";
