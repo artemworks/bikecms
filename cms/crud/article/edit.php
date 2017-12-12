@@ -5,7 +5,7 @@ $article = getArticleById($activity_id);
 
 <h1 class="display-4">Edit article <b>"<?= $article["title"] ?>"</b></h1>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
         
   <div class="form-row">
     
@@ -22,7 +22,12 @@ $article = getArticleById($activity_id);
 
             <label for="body">Body</label>
             <textarea class="form-control" type="text" name="body" rows="7"><?= $article["body"] ?></textarea>
-    
+
+            <label for="cover_image">Cover Image 1420x700:</label>
+              <input type="file" value="<?= $article["cover"] ?>" id="coverToUpload" name="cover_image" accept="image/gif, image/jpeg, image/png" onchange="readCover(this)" aria-describedby="coverHelp">
+              <small id="coverHelp" class="form-text text-muted">Choose a cover image for this article.</small>
+              <img src="<?= DIR_URL_IMG . $article["cover"] ?>" id="readCoverDefault" class="img-fluid" />
+
     </div>
 
     <div class="form-group col-md-2">

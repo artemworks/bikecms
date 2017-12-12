@@ -18,14 +18,14 @@ if ( $activity === "/" || $activity === "") {
 
 if ( $activity === "add" ) {
 
-  if ( isset($_POST["add"]) & 
+  if ( isset($_POST["add"]) && isset($_FILES["cover_image"]) && !empty($_FILES["cover_image"]["name"]) &&
        isset($_POST["posted"]) && isset($_POST["archiving"]) &&
        isset($_POST["title"]) && isset($_POST["title_url"]) &&
        isset($_POST["description"]) && isset($_POST["body"]) &&
        isset($_POST["user_id"]) && isset($_POST["is_active"]) ) {
 
-                  $stmt = $pdo->prepare("INSERT INTO Article (posted, archiving, title, title_url, description, body, user_id, is_active) 
-                                VALUES (:pos, :arc, :tit, :tiu, :des, :bod, :use, :ise)");
+                  $stmt = $pdo->prepare("INSERT INTO Article (posted, archiving, title, title_url, description, body, cover, user_id, is_active) 
+                                VALUES (:pos, :arc, :tit, :tiu, :des, :bod, :cov, :use, :ise)");
 
                   $stmt->execute(array(
                       ':pos' => $_POST["posted"],
@@ -34,9 +34,13 @@ if ( $activity === "add" ) {
                       ':tiu' => $_POST["title_url"],
                       ':des' => $_POST["description"],
                       ':bod' => $_POST["body"],
+                      ':cov' => $_FILES["cover_image"]["name"],
                       ':use' => $_POST["user_id"],
                       ':ise' => $_POST["is_active"])
                         );
+
+                  $coverPath = DIR_IMG . basename($_FILES["cover_image"]["name"]);
+                  move_uploaded_file($_FILES["cover_image"]["tmp_name"], $coverPath);
 
                   $article_id = $pdo->lastInsertId();
 
@@ -57,7 +61,7 @@ if ( $activity === "add" ) {
 
 if ( $activity === "edit" && !empty($activity_id) ) {
 
-          if ( isset($_POST["edit"]) && 
+          if ( isset($_POST["edit"]) && isset($_FILES["cover_image"]) && !empty($_FILES["cover_image"]["name"]) &&
                isset($_POST["posted"]) && isset($_POST["archiving"]) &&
                isset($_POST["title"]) && isset($_POST["title_url"]) &&
                isset($_POST["description"]) && isset($_POST["body"]) &&
@@ -70,6 +74,7 @@ if ( $activity === "edit" && !empty($activity_id) ) {
                          title_url = :tiu, 
                          description = :des, 
                          body = :bod, 
+                         cover = :cov,
                          user_id = :uid, 
                          is_active = :isa 
                                WHERE article_id = :aid
@@ -82,10 +87,14 @@ if ( $activity === "edit" && !empty($activity_id) ) {
                       ':tiu' => $_POST["title_url"],
                       ':des' => $_POST["description"],
                       ':bod' => $_POST["body"],
+                      ':cov' => $_FILES["cover_image"]["name"],
                       ':uid' => $_POST["user_id"],
                       ':isa' => $_POST["is_active"],
                       ':aid' => $activity_id)
                         );
+
+                  $coverPath = DIR_IMG . basename($_FILES["cover_image"]["name"]);
+                  move_uploaded_file($_FILES["cover_image"]["tmp_name"], $coverPath);
 
                   $_SESSION['success'] = "Article updated";
                   header("Location: " . DIR_URL . "cms/article");

@@ -4,7 +4,7 @@ require_once DIR . "cms/crud/header.php";
 
 <h1 class="display-4">Add Article</h1>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
   
   <div class="form-row">
     
@@ -21,7 +21,12 @@ require_once DIR . "cms/crud/header.php";
 
             <label for="body">Body</label>
             <textarea class="form-control" type="text" name="body" rows="7" Placeholder="Just want to say something good about my bike"></textarea>
-    
+
+            <label for="cover_image">Cover Image 1420x700:</label>
+              <input type="file" id="coverToUpload" name="cover_image" accept="image/gif, image/jpeg, image/png" onchange="readCover(this)" aria-describedby="coverHelp">
+              <small id="coverHelp" class="form-text text-muted">Choose a cover image for this article.</small>
+              <img id="readCoverDefault" />
+
     </div>
 
     <div class="form-group col-md-2">

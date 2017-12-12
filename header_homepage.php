@@ -56,7 +56,7 @@
 			echo '<div class="carousel-item ';
 			if ( $i==1 ) { echo "active"; }
 				echo '">
-					<img class="d-block w-100" src="assets/img/0' . $i . '.jpg" alt="..." style="-webkit-filter: grayscale(80%); filter: grayscale(80%);">
+					<img class="d-block w-100" src="' . DIR_URL_IMG . $art["cover"] . '" alt="' . $art["title"] . '" style="-webkit-filter: grayscale(80%); filter: grayscale(80%);">
 						<div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.6);">
 						    <h1 class="display-4" style="text-shadow: 1px 1px #000000;">' . "<a href='articles/" . $art["title_url"] . "' style='text-decoration:none;color:#ffffff'>" . $art["title"] . '</a></h1>
 						    <p style="text-shadow: 1px 1px #000000;">' . $art["description"] . '</p>
