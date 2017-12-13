@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="<?= $dir_url ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= $dir_url ?>assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="<?= $dir_url ?>assets/css/bike.css">
   </head>
   <body>
 

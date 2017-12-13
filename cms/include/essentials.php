@@ -9,7 +9,7 @@ define("DIR_URL", "http://localhost:8005/git/bikecms/");
 define("DIR_URL_IMG", "http://localhost:8005/git/bikecms/images/");
 
 $dir_url = "http://localhost:8005/git/bikecms/";
-
+$git_url = "https://github.com/artemworks/bikecms";
 $cms_title = "BikeCMS";
 
 ?>
