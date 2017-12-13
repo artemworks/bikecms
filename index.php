@@ -11,7 +11,7 @@ switch ($page) {
 
 	case 'homepage':
 
-		require_once "./header_homepage.php";
+		require_once "./header_cards.php";
 		require_once "./footer.php";
 		break;
 

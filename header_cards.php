@@ -44,3 +44,26 @@
   	<div class="container">
   		<div class="row">
   			<div class="col-12">
+
+				<div class="card-deck">
+				<?php
+				$threeArticles = getLastThreeArticles();
+				foreach ($threeArticles as $art) {
+					$date = DateTime::createFromFormat('Y-m-d H:i:s', $art["posted"]);
+					$date = $date->format('M, n Y');
+					echo '
+						  <div class="card">
+						    <img class="card-img-top" src="' . DIR_URL_IMG . $art["cover"] . '" alt="' . $art["title"] . '">
+						    <div class="card-body">
+						      <h4 class="card-title"><a href=' . DIR_URL . 'articles/' . $art["title_url"] . '>' . $art["title"] . '</a></h4>
+						      <p class="card-text">' . $art["description"] . '</p>
+						    </div>
+						    <div class="card-footer">
+						      <small class="text-muted">' . $date . '</small>
+						    </div>
+						  </div>
+							';
+					}
+				?>
+
+				</div>
