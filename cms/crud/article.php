@@ -18,7 +18,8 @@ if ( $activity === "/" || $activity === "") {
 
 if ( $activity === "add" ) {
 
-  if ( isset($_POST["add"]) && isset($_FILES["cover_image"]) && !empty($_FILES["cover_image"]["name"]) &&
+  if ( isset($_POST["add"]) && 
+       isset($_FILES["cover_image"]) && !empty($_FILES["cover_image"]["name"]) && 
        isset($_POST["posted"]) && isset($_POST["archiving"]) &&
        isset($_POST["title"]) && isset($_POST["title_url"]) &&
        isset($_POST["description"]) && isset($_POST["body"]) &&
@@ -61,11 +62,19 @@ if ( $activity === "add" ) {
 
 if ( $activity === "edit" && !empty($activity_id) ) {
 
-          if ( isset($_POST["edit"]) && isset($_FILES["cover_image"]) && !empty($_FILES["cover_image"]["name"]) &&
+          if ( isset($_POST["edit"]) && 
                isset($_POST["posted"]) && isset($_POST["archiving"]) &&
                isset($_POST["title"]) && isset($_POST["title_url"]) &&
                isset($_POST["description"]) && isset($_POST["body"]) &&
                isset($_POST["user_id"]) && isset($_POST["is_active"]) ) {
+
+                  if ( isset($_FILES["cover_image"]) && !empty($_FILES["cover_image"]["name"]) ) {
+                    $coverImage = $_FILES["cover_image"]["name"];
+                    $coverPath = DIR_IMG . basename($_FILES["cover_image"]["name"]);
+                    move_uploaded_file($_FILES["cover_image"]["tmp_name"], $coverPath);
+                  } else {
+                    $coverImage = $_POST["cover_image"];
+                  }
 
                   $stmt = $pdo->prepare("UPDATE Article SET 
                          posted = :pos, 
@@ -87,14 +96,11 @@ if ( $activity === "edit" && !empty($activity_id) ) {
                       ':tiu' => $_POST["title_url"],
                       ':des' => $_POST["description"],
                       ':bod' => $_POST["body"],
-                      ':cov' => $_FILES["cover_image"]["name"],
+                      ':cov' => $coverImage,
                       ':uid' => $_POST["user_id"],
                       ':isa' => $_POST["is_active"],
                       ':aid' => $activity_id)
                         );
-
-                  $coverPath = DIR_IMG . basename($_FILES["cover_image"]["name"]);
-                  move_uploaded_file($_FILES["cover_image"]["tmp_name"], $coverPath);
 
                   $_SESSION['success'] = "Article updated";
                   header("Location: " . DIR_URL . "cms/article");

@@ -23,8 +23,9 @@ $article = getArticleById($activity_id);
             <label for="body">Body</label>
             <textarea class="form-control" type="text" name="body" rows="7"><?= $article["body"] ?></textarea>
 
-            <label for="cover_image">Cover Image 1420x700:</label>
-              <input type="file" value="<?= $article["cover"] ?>" id="coverToUpload" name="cover_image" accept="image/gif, image/jpeg, image/png" onchange="readCover(this)" aria-describedby="coverHelp">
+            <label for="cover_image">Cover Image:</label>
+              <input type="file" id="coverToUpload" name="cover_image" accept="image/gif, image/jpeg, image/png" onchange="readCover(this)" aria-describedby="coverHelp">
+              <input type="hidden" name="cover_image" value="<?= $article["cover"] ?>">
               <small id="coverHelp" class="form-text text-muted">Choose a cover image for this article.</small>
               <img src="<?= DIR_URL_IMG . $article["cover"] ?>" id="readCoverDefault" class="img-fluid" />
 
@@ -39,8 +40,19 @@ $article = getArticleById($activity_id);
             <input type="text" class="form-control" name="archiving" value="<?= $article["archiving"] ?>">
 
             <label for="dateArchived">As a User</label>
-            <input type="text" class="form-control" name="user_id" value="<?= $_SESSION['user_id'] ?>">
-
+            <select class="form-control" name="user_id">
+              <?php
+                $users = getUsers();
+                foreach ($users as $user) {
+                  echo '<option value="' . 
+                        $user["user_id"] . '"';
+                  if ($user["user_id"] === $article["user_id"]) echo "selected";
+                  echo '>' . 
+                        $user["name"] . 
+                        '</option>';
+                }
+              ?>
+            </select>
 
       <label for="is_active">Is active?</label>
 

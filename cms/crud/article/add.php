@@ -22,7 +22,7 @@ require_once DIR . "cms/crud/header.php";
             <label for="body">Body</label>
             <textarea class="form-control" type="text" name="body" rows="7" Placeholder="Just want to say something good about my bike"></textarea>
 
-            <label for="cover_image">Cover Image 1420x700:</label>
+            <label for="cover_image">Cover Image:</label>
               <input type="file" id="coverToUpload" name="cover_image" accept="image/gif, image/jpeg, image/png" onchange="readCover(this)" aria-describedby="coverHelp">
               <small id="coverHelp" class="form-text text-muted">Choose a cover image for this article.</small>
               <img id="readCoverDefault" />

@@ -171,8 +171,8 @@ switch ($page) {
 			$date = $date->format('D M, n Y g:i a');
 			echo 
 				"<h1 class=\"display-4\">" . htmlentities($article["title"]) . "</h1>" . 
-				"<strong>" . $article["description"] . "</strong>" . 
-				"<p><i>" . $date . "</i></p>" . 
+				"<p><img src=\"" . DIR_URL_IMG . $article["cover"] . "\" class=\"img-fluid\" alt=\"" . $article["description"] . "\"></p>" . 
+				"<p><small>" . $date . "</small></p>" . 
 				"<p>" . nl2br($article["body"]) . "</p>"
 			;
 			

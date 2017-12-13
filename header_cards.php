@@ -50,7 +50,7 @@
 				$lastArticles = getLastArticles(3);
 				foreach ($lastArticles as $art) {
 					$date = DateTime::createFromFormat('Y-m-d H:i:s', $art["posted"]);
-					$date = $date->format('M, n Y');
+					$date = $date->format('M n');
 					echo '
 						  <div class="card">
 						    <img class="card-img-top" src="' . DIR_URL_IMG . $art["cover"] . '" alt="' . $art["title"] . '">
