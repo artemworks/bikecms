@@ -215,10 +215,12 @@ function flashMessages() {
 	}
 }
 
-function getLastThreeArticles() {
+function getLastArticles($number) {
 	global $pdo;
 
-	$stmt = $pdo->query("SELECT * FROM article ORDER BY posted DESC LIMIT 3");
+	$stmt = $pdo->prepare("SELECT * FROM article ORDER BY posted DESC LIMIT :num");
+	$stmt->bindParam(':num', $number, PDO::PARAM_INT);
+	$stmt->execute();
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $result;
 }

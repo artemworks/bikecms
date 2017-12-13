@@ -47,8 +47,8 @@
 
 				<div class="card-deck">
 				<?php
-				$threeArticles = getLastThreeArticles();
-				foreach ($threeArticles as $art) {
+				$lastArticles = getLastArticles(3);
+				foreach ($lastArticles as $art) {
 					$date = DateTime::createFromFormat('Y-m-d H:i:s', $art["posted"]);
 					$date = $date->format('M, n Y');
 					echo '
