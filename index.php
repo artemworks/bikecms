@@ -146,10 +146,13 @@ switch ($page) {
 		break;
 
 	case 'articles':
-		require_once "./header.php";
 
 		if ( ! $_GET["two"] || $_GET["two"] == "/" ) {
+
+			require_once "./header.php";
+
 			echo "<h1 class=\"display-4\">My Articles</h1>";
+
 			$articles = getArticles();
 			foreach ($articles as $article) {
 				if ( $article["is_active"] ) {
@@ -167,6 +170,9 @@ switch ($page) {
 		else if ( $_GET["two"] ) {
 			$title_url = htmlentities(ltrim($_GET["two"], '/'));
 			$article = getArticleByUrl($title_url);
+			
+			require_once "./header.php";
+
 			$date = DateTime::createFromFormat('Y-m-d H:i:s', $article["posted"]);
 			$date = $date->format('D M, n Y g:i a');
 			echo 

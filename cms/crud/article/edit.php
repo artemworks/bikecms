@@ -5,7 +5,7 @@ $article = getArticleById($activity_id);
 
 <h1 class="display-4">Edit article <b>"<?= $article["title"] ?>"</b></h1>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" onsubmit="return postForm()">
         
   <div class="form-row">
     
@@ -21,7 +21,7 @@ $article = getArticleById($activity_id);
             <input type="text" name="description" class="form-control" value="<?= $article["description"] ?>">
 
             <label for="body">Body</label>
-            <textarea class="form-control" type="text" name="body" rows="7"><?= $article["body"] ?></textarea>
+            <textarea id="summernote" class="form-control" type="text" name="body" rows="10"></textarea>
 
             <label for="cover_image">Cover Image:</label>
               <input type="file" id="coverToUpload" name="cover_image" accept="image/gif, image/jpeg, image/png" onchange="readCover(this)" aria-describedby="coverHelp">
@@ -79,6 +79,7 @@ $article = getArticleById($activity_id);
 
   </div>
 </form>
+
 
 
 <?php require_once DIR . "cms/crud/footer.php"; ?>

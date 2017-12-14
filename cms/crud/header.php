@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="<?= $dir_url ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= $dir_url ?>assets/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="<?= $dir_url ?>assets/css/bike.css">
+    <link href="<?= $dir_url ?>cms/vendors/summernote/summernote-bs4.css" rel="stylesheet">
+
+
   </head>
   <body>
 

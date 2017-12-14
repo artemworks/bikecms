@@ -4,7 +4,7 @@ require_once DIR . "cms/crud/header.php";
 
 <h1 class="display-4">Add Article</h1>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" onsubmit="return postForm()">
   
   <div class="form-row">
     
@@ -20,7 +20,7 @@ require_once DIR . "cms/crud/header.php";
             <input type="text" name="description" class="form-control" Placeholder="I got you my bike, yeah">
 
             <label for="body">Body</label>
-            <textarea class="form-control" type="text" name="body" rows="7" Placeholder="Just want to say something good about my bike"></textarea>
+            <textarea id="summernote" class="form-control" type="text" name="body" rows="7" Placeholder="Just want to say something good about my bike"></textarea>
 
             <label for="cover_image">Cover Image:</label>
               <input type="file" id="coverToUpload" name="cover_image" accept="image/gif, image/jpeg, image/png" onchange="readCover(this)" aria-describedby="coverHelp">
