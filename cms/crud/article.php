@@ -45,6 +45,9 @@ if ( $activity === "add" ) {
 
                   $article_id = $pdo->lastInsertId();
 
+                  insertSections($article_id);
+                  insertTags($article_id);
+
                   if ( !$article_id || empty($article_id) ) {
                     $_SESSION["error"] = "Something bad happened";
                     header("Location: " . DIR_URL . "cms/article");
@@ -101,6 +104,18 @@ if ( $activity === "edit" && !empty($activity_id) ) {
                       ':isa' => $_POST["is_active"],
                       ':aid' => $activity_id)
                         );
+
+                  // clining old section entries
+                  $stmt = $pdo->prepare('DELETE FROM sections WHERE article_id=:aid');
+                  $stmt->execute(array( ':aid' => $activity_id ));
+                  // insert new
+                  insertSections($activity_id);
+
+                  // clining old tag entries
+                  $stmt = $pdo->prepare('DELETE FROM tags WHERE article_id=:aid');
+                  $stmt->execute(array( ':aid' => $activity_id ));
+                  // insert new
+                  insertTags($activity_id);
 
                   $_SESSION['success'] = "Article updated";
                   header("Location: " . DIR_URL . "cms/article");

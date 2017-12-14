@@ -96,9 +96,7 @@ $sql[] = "INSERT INTO article (posted, archiving, title, title_url, description,
 $sql[] = "CREATE TABLE tags (
 	article_id	INT(11)         NOT NULL,
 	tag_id 		INT(11)         NOT NULL,
-	rank		VARCHAR(64)     NOT NULL,
-	FOREIGN KEY (article_id) REFERENCES article (article_id),
-	FOREIGN KEY (tag_id) REFERENCES tag (tag_id)
+	rank		VARCHAR(64)     NOT NULL DEFAULT '0'
 	)";
 
 $sql[] = "INSERT INTO tags (article_id, tag_id, rank) VALUES (1, 1, 3), (1 , 2, 2), (1 , 3, 2)";
@@ -106,9 +104,7 @@ $sql[] = "INSERT INTO tags (article_id, tag_id, rank) VALUES (1, 1, 3), (1 , 2, 
 $sql[] = "CREATE TABLE sections (
 	article_id	INT(11)         NOT NULL,
 	section_id 	INT(11)         NOT NULL,
-	rank		VARCHAR(64)     NOT NULL,
-	FOREIGN KEY (article_id) REFERENCES article (article_id),
-	FOREIGN KEY (section_id) REFERENCES section (section_id)
+	rank		VARCHAR(64)     NOT NULL DEFAULT '0'
 	)";
 
 $sql[] = "INSERT INTO sections (article_id, section_id, rank) VALUES (1, 1, 3)";

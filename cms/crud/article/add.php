@@ -38,8 +38,19 @@ require_once DIR . "cms/crud/header.php";
             <input type="date" class="form-control" name="archiving">
 
             <label for="dateArchived">As a User</label>
-            <input type="text" class="form-control" name="user_id" value="<?= $_SESSION['user_id'] ?>">
-
+            <select class="form-control" name="user_id">
+              <?php
+                $users = getUsers();
+                foreach ($users as $user) {
+                  echo '<option value="' . 
+                        $user["user_id"] . '"';
+                  if ($user["user_id"] === $_SESSION["user_id"]) echo "selected";
+                  echo '>' . 
+                        $user["name"] . 
+                        '</option>';
+                }
+              ?>
+            </select>
 
         <label for="is_active">Is active?</label>
 
@@ -56,6 +67,14 @@ require_once DIR . "cms/crud/header.php";
             </label>
           </div>
         </div>
+
+        <label for="addTag">Tag:</label>
+        <input type="submit" id="addTag" value="+">
+        <div id="tag_fields"></div>
+
+        <label for="addSection">Section:</label>
+        <input type="submit" id="addSection" value="+">
+        <div id="section_fields"></div>
 
     </div>
 

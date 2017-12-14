@@ -193,7 +193,7 @@ switch ($page) {
 			}
 					
 			$tags = getArticleTags($article["article_id"]);
-			if (!empty($tags)) {
+			if ( !empty($tags) ) {
 				echo "<p>Tags: ";
 				foreach ($tags as $tag) {
 					$tagArray = getTagById($tag["tag_id"]);
@@ -230,17 +230,21 @@ switch ($page) {
 			echo "<h1 class=\"display-4\">My Articles for tag <i>" . $name . "</i></h1>";
 			$tag_id = getTagIdByUrl($name)["tag_id"];
 			$articles = getArticlesForTag($tag_id);
+
 			foreach ($articles as $article) {
 				
 				$articleArr = getArticleById($article["article_id"]);
-				$date = DateTime::createFromFormat('Y-m-d H:i:s', $articleArr["posted"]);
-				$date = $date->format('M, n Y');
 
-					echo 
+				if (isset($articleArr["posted"])) {
+					
+					$date = DateTime::createFromFormat('Y-m-d H:i:s', $articleArr["posted"])->format('M, n Y');
+
+					echo "<p>" . 
 						htmlentities($date) . " <a href=" . $dir_url . "articles/" .   
 						htmlentities($articleArr["title_url"]) . ">" . 
-						htmlentities($articleArr["title"]) . "</a><br>"
+						htmlentities($articleArr["title"]) . "</a></p>"
 					;
+				}
 			}
 		}
 

@@ -72,6 +72,44 @@ $article = getArticleById($activity_id);
         
         </div>
 
+        <label for="addTag">Tag:</label>
+        <input type="submit" id="addTag" value="+">
+        <div id="tag_fields">
+<?php
+  $tags = getArticleTags($article["article_id"]);
+  $countTag = 0;
+  $numTag = count($tags);
+  foreach ($tags as $tag) {
+    echo '<div id="positionTag'.$countTag.'">
+          Tag: <select class="form-control" name="tag_id'.$countTag.'">
+          <option value="' . $tag["tag_id"] . '">' . getTagById($tag["tag_id"])["name"] . '</option></select>
+          <input type="button" value="-" onclick="$(\'#positionTag'.$countTag.'\').remove(); 
+          return false;">
+          </div>';
+    $countTag++;
+  }
+?>
+        </div>
+
+        <label for="addSection">Section:</label>
+        <input type="submit" id="addSection" value="+">
+        <div id="section_fields">
+<?php
+  $sections = getArticleSections($article["article_id"]);
+  $countSec = 0;
+  $numSec = count($sections);
+  foreach ($sections as $section) {
+    echo '<div id="positionSection'.$countSec.'">
+          Section: <select class="form-control" name="section_id'.$countSec.'">
+          <option value="' . $section["section_id"] . '">' . getSectionById($section["section_id"])["name"] . '</option></select>
+          <input type="button" value="-" onclick="$(\'#positionSection'.$countSec.'\').remove(); 
+          return false;">
+          </div>';
+    $countSec++;
+  }
+?>
+        </div>
+        
     </div>
 
   <button type="submit" class="btn btn-outline-primary" name="edit">Edit</button>&nbsp;

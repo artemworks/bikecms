@@ -264,7 +264,7 @@ function getArticleSections($article_id) {
 function getArticleTags($article_id) {
 	global $pdo;
 
-	$stmt = $pdo->prepare("SELECT * FROM tags WHERE article_id = :aid ORDER BY rank ASC");
+	$stmt = $pdo->prepare("SELECT * FROM tags WHERE article_id = :aid ORDER BY tag_id ASC");
 	$stmt->execute(array(':aid' => $article_id));
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $result;
@@ -277,6 +277,42 @@ function searchArticle($q) {
 	$stmt->execute(array(':searchTerm' => '%'.$q.'%'));
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $result;
+}
+
+function insertTags($article_id) {
+	global $pdo;
+
+	for ($i=0; $i < 9; $i++) { 
+	    if ( !isset($_POST['tag_id'.$i]) ) continue;
+	    $tag_id = $_POST['tag_id'.$i];
+
+	    $stmt = $pdo->prepare('INSERT INTO tags 
+			(article_id, tag_id)
+			VALUES (:aid, :tid)
+	    	');
+	    $stmt->execute(array(
+	    	':aid' => $article_id,
+	    	':tid' => $tag_id
+	    	));
+	}
+}
+
+function insertSections($article_id) {
+	global $pdo;
+
+	for ($i=0; $i < 9; $i++) { 
+	    if ( !isset($_POST['section_id'.$i]) ) continue;
+	    $section_id = $_POST['section_id'.$i];
+
+	    $stmt = $pdo->prepare('INSERT INTO sections 
+			(article_id, section_id)
+			VALUES (:aid, :sid)
+	    	');
+	    $stmt->execute(array(
+	    	':aid' => $article_id,
+	    	':sid' => $section_id
+	    	));
+	}
 }
 
 ?>
