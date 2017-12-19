@@ -315,4 +315,12 @@ function insertSections($article_id) {
 	}
 }
 
+function count_views($counter, $article_id) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("UPDATE article SET views = :vw WHERE article_id = :aid");
+	$stmt->execute(array(':vw' => $counter, ':aid' => $article_id));
+
+}
+
 ?>

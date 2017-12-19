@@ -170,6 +170,8 @@ switch ($page) {
 		else if ( $_GET["two"] ) {
 			$title_url = htmlentities(ltrim($_GET["two"], '/'));
 			$article = getArticleByUrl($title_url);
+			$viewsCounter = $article["views"] + 1;
+			count_views($viewsCounter,$article["article_id"]);
 			
 			require_once "./header.php";
 
@@ -178,7 +180,7 @@ switch ($page) {
 			echo 
 				"<h1 class=\"display-4\">" . htmlentities($article["title"]) . "</h1>" . 
 				"<p><img src=\"" . DIR_URL_IMG . $article["cover"] . "\" class=\"img-fluid\" alt=\"" . $article["description"] . "\"></p>" . 
-				"<p><small>" . $date . "</small></p>" . 
+				"<p><small>" . $date . " &middot; <i class=\"fas fa-eye fa-sm\"></i> " . $article["views"] . "</small></p>" . 
 				"<p>" . nl2br($article["body"]) . "</p>"
 			;
 			

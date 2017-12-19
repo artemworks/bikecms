@@ -60,10 +60,11 @@ $sql[] = "CREATE TABLE article (
 	cover		VARCHAR(100)    NOT NULL DEFAULT '',
 	user_id 	INT(11)         NOT NULL,
 	is_active 	TINYINT(1)      NOT NULL DEFAULT '0',
+    views	    INT(11)         NOT NULL DEFAULT '0',
 	PRIMARY KEY (article_id)
 	)";
 
-$sql[] = "INSERT INTO article (posted, archiving, title, title_url, description, body, cover, user_id, is_active) 
+$sql[] = "INSERT INTO article (posted, archiving, title, title_url, description, body, cover, user_id, is_active, views) 
 		  VALUES ('2017-11-01 10:59:32', 
 		  		  '2017-12-02 10:59:32', 
 		  		  'Welcome to the BikeCMS', 
@@ -72,6 +73,7 @@ $sql[] = "INSERT INTO article (posted, archiving, title, title_url, description,
 		  		  'Simple, fast and elegant solution. <i>Lorem Ipsum</i> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy txt ever since the 1500s, when an unknown printer took a galley of type ynd scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised comon the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus <b>PageMaker</b> including versions of Lorem Ipsum.', 
 		  		  '01.jpg', 
 		  		  1, 
+		  		  1,
 		  		  1),
 				 ('2017-10-01 10:59:32', 
 				  '2017-12-02 10:59:32', 
@@ -81,6 +83,7 @@ $sql[] = "INSERT INTO article (posted, archiving, title, title_url, description,
 		  	      'Hello world, this is my first prize. <b>Congratulations!</b> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. <p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.<br>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de <b>Finibus Bonorum</b> et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.</p>', 
 		  	      '02.jpg', 
 		  	      1, 
+		  	      1,
 		  	      1),
 			     ('2017-09-01 10:59:32', 
 			      '2017-12-02 10:59:32', 
@@ -90,6 +93,7 @@ $sql[] = "INSERT INTO article (posted, archiving, title, title_url, description,
 		  	      'Hello world, this is my first article. Congratulations! It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy.</p> Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 
 		  	      '03.jpg', 
 		  	      1, 
+		  	      1,
 		  	      1)
 		";
 
