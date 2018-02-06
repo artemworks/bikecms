@@ -45,6 +45,22 @@ function getUsers() {
 	return $result;
 }
 
+function getTrans() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM b_transactions ORDER BY trans_date ASC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getCats() {
+	global $pdo;
+
+	$stmt = $pdo->query("SELECT * FROM b_categories ORDER BY cat_title ASC");
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
+}
+
 function getArticleById($article_id) {
 	global $pdo;
 
@@ -77,6 +93,24 @@ function getUserById($user_id) {
 
 	$stmt = $pdo->prepare("SELECT * FROM users WHERE user_id = :uid LIMIT 1");
 	$stmt->execute(array(':uid' => $user_id));
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getTransById($trans_id) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("SELECT * FROM b_transactions WHERE trans_id = :tid LIMIT 1");
+	$stmt->execute(array(':tid' => $trans_id));
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $result;
+}
+
+function getCatById($cat_id) {
+	global $pdo;
+
+	$stmt = $pdo->prepare("SELECT * FROM b_categories WHERE cat_id = :cid LIMIT 1");
+	$stmt->execute(array(':cid' => $cat_id));
 	$result = $stmt->fetch(PDO::FETCH_ASSOC);
 	return $result;
 }

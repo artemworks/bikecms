@@ -9,6 +9,10 @@ html {
   box-sizing: inherit;
 }
 
+.app-row {
+  padding-top: 2rem;
+}
+
 body {
   position: relative;
   margin: 0;
