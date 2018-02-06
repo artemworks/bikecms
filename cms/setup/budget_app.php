@@ -28,7 +28,18 @@ $sql[] = "CREATE TABLE b_categories (
 	)";
 
 $sql[] = "INSERT INTO b_categories (cat_title, is_active) 
-				 			VALUES ('groceries', 1)";
+				 			VALUES ('Food and Groceries', 1),
+				 			       ('Transportation', 1),
+				 				   ('Clothing', 1),
+				 				   ('Utilities', 1),
+				 				   ('Personal Care', 1),
+				 				   ('Health Care', 1),
+				 				   ('Insurance', 1),
+				 				   ('Medical', 1),
+				 				   ('Housing', 1),
+				 				   ('Entertainment', 1),
+				 				   ('Gifts', 1),
+				 				   ('Unexpected', 1)";
 
 $_SESSION['success_count'] = 0;
 $_SESSION['error_count'] = 0;
