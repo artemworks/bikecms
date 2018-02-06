@@ -35,6 +35,7 @@ $sql[] = "INSERT INTO b_categories (cat_title, is_active)
 				 				   ('Personal Care', 1),
 				 				   ('Health Care', 1),
 				 				   ('Insurance', 1),
+				 				   ('Banking', 1),
 				 				   ('Medical', 1),
 				 				   ('Housing', 1),
 				 				   ('Entertainment', 1),

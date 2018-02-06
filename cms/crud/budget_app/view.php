@@ -27,8 +27,9 @@ $transactions = getTrans();
 
     foreach ($transactions as $transaction) {
 
-      $transDate = DateTime::createFromFormat('Y-m-d H:i:s', $transaction["trans_date"]);
-      $transDate = $transDate->format('M, n Y');
+      $transDate = DateTime::createFromFormat('Y-m-d H:i:s', htmlentities($transaction["trans_date"]) );
+      //$transDate = $transDate->format('M, n Y');
+      $transDate = $transDate->format('M, d Y');
 
       $transaction["is_active"] ? $status = "Active" : $status = "Not Active";
 
@@ -38,7 +39,7 @@ $transactions = getTrans();
 
     <td><input class="form-check-input" name="trans_id" type="checkbox" value="<?= htmlentities($transaction["trans_id"]) ?>"></td>
     <td><?= htmlentities($transaction["trans_id"]) ?></td>
-    <td><a href="<?= DIR_URL . "cms/budget_app/edit/" . htmlentities($transaction["trans_id"]) ?>"><?= htmlentities($transDate) ?></a></td>
+    <td><a href="<?= DIR_URL . "cms/budget_app/edit/" . htmlentities($transaction["trans_id"]) ?>"><?= $transDate ?></a></td>
     <td><?= htmlentities($transaction["store"]) ?></td>
     <td><?= htmlentities($transaction["amount"]) ?></td>
     <td><?= htmlentities($transaction["tax"]) ?></td>
