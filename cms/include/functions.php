@@ -48,7 +48,7 @@ function getUsers() {
 function getTrans() {
 	global $pdo;
 
-	$stmt = $pdo->query("SELECT * FROM b_transactions ORDER BY trans_date ASC");
+	$stmt = $pdo->query("SELECT * FROM b_transactions ORDER BY trans_date DESC");
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $result;
 }

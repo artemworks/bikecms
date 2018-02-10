@@ -279,6 +279,23 @@ switch ($page) {
 		require_once "./footer.php";
 		break;
 
+	case 'budget':
+		require_once "./header.php";
+		
+		foreach ($sections as $section) {
+			if ( isset($_GET["one"]) && $section["page"] == $_GET["one"]) {
+				echo "<h1 class=\"display-4\">" . $section["title"] . "</h1>";
+				echo "<p>" . $section["description"] . "</p>";
+			}
+		}
+
+		/*
+			API implementation here
+		*/
+
+		require_once "./footer.php";
+		break;
+
 	default:
 		require_once "./header.php";
 		
