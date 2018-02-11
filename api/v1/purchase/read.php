@@ -6,10 +6,10 @@ header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 
-include_once '../config/settings.php';
-include_once '../shared/utilities.php';
-include_once '../config/db.php';
-include_once '../objects/purchase.php';
+include_once '../../config/settings.php';
+include_once '../../shared/utilities.php';
+include_once '../../config/db.php';
+include_once '../../objects/purchase.php';
 
 $utilities = new Utilities();
 

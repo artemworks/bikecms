@@ -21,7 +21,7 @@ class Purchase
 
 	public function read()
 	{
-		$query = "SELECT trans_id, trans_date, store, amount, tax, cat_id, is_active  
+		$query = "SELECT * 
 					FROM " . $this->table_name . " 
 					ORDER BY trans_date DESC";
 
@@ -35,7 +35,7 @@ class Purchase
 
 	public function readByPage($from_record_num, $records_per_page){
 	 
-		$query = "SELECT trans_id, trans_date, store, amount, tax, cat_id, is_active  
+		$query = "SELECT * 
 					FROM " . $this->table_name . " 
 					ORDER BY trans_date DESC
 	                LIMIT ?, ?";
