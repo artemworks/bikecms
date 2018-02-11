@@ -1,4 +1,7 @@
 <?php
+require_once "./models/db.php";
+$database = new Database();
+$db = $database->getConnection();
 require_once "./cms/include/pdo.php";
 require_once "./cms/include/essentials.php";
 require_once "./cms/include/functions.php";
@@ -11,8 +14,8 @@ switch ($page) {
 
 	case 'homepage':
 
-		require_once "./header_cards.php";
-		require_once "./footer.php";
+		require_once "./views/homepage/header_cards.php";
+		require_once "./views/footer.php";
 		break;
 
 	case 'register':
@@ -279,34 +282,12 @@ switch ($page) {
 		require_once "./footer.php";
 		break;
 
-	case 'budget':
-		require_once "./header.php";
-		
-		foreach ($sections as $section) {
-			if ( isset($_GET["one"]) && $section["page"] == $_GET["one"]) {
-				echo "<h1 class=\"display-4\">" . $section["title"] . "</h1>";
-				echo "<p>" . $section["description"] . "</p>";
-			}
-		}
-
-		/*
-			API implementation here
-		*/
-
-		require_once "./footer.php";
+	case 'budget':	
+		require_once "./controllers/budget.php";
 		break;
 
 	default:
-		require_once "./header.php";
-		
-		foreach ($sections as $section) {
-			if ( isset($_GET["one"]) && $section["page"] == $_GET["one"]) {
-				echo "<h1 class=\"display-4\">" . $section["title"] . "</h1>";
-				echo "<p>" . $section["description"] . "</p>";
-			}
-		}
-
-		require_once "./footer.php";
+		require_once "./controllers/default.php";
 		break;
 }
 
