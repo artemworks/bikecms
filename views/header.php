@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><?php if ( isset($article_content["title"]) ) { echo $article_content["title"] . " - " . $cms_title; } else { echo ucwords(htmlentities($controller)) . " - " . $cms_title; } ?></title>
+    <title><?php if ( isset($article_content["title"]) ) { echo $article_content["title"] . " - " . CMS_TITLE; } else { echo ucwords(htmlentities($controller)) . " - " . CMS_TITLE; } ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="<?= DIR_URL ?>assets/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
 
 	<div class="container">
 
-	  <a class="navbar-brand" href="<?= DIR_URL ?>"><?= $cms_title ?></a>
+	  <a class="navbar-brand" href="<?= DIR_URL ?>"><?= CMS_TITLE ?></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -22,7 +22,6 @@
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 			<?php
-				$sections = getSections();
 				foreach ($sections as $section) {
 					if ( $section["is_active"] ) {
 						echo "<li class=\"nav-item\"><a class=\"nav-link\" href='" . DIR_URL . $section["page"] . "'>" . $section["title"] . "</a></li>";

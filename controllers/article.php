@@ -1,14 +1,24 @@
 <?php
 
-require_once "./models/article.php";
+require_once "./models/section.php";
+$section = new Section($db);
+$sections = $section->readAll();
 
+require_once "./models/tag.php";
+$tag = new Tag($db);
+
+require_once "./models/article.php";
 $article = new Article($db);
 $article_content = $article->getArticleByUrl(htmlentities(ltrim($action, '/')));
 
+require_once "./include/utilities.php";
+$utility = new Utility($db);
+
+
 if ($article_content)
 {
-	$sections = getArticleSections($article_content["article_id"]);
-	$tags = getArticleTags($article_content["article_id"]);
+	$sectionsForArticle = $section->getArticleSections($article_content["article_id"]);
+	$tagsForArticle = $tag->getArticleTags($article_content["article_id"]);
 
 	$viewsCounter = $article_content["views"] + 1;
 	$article->count_views($viewsCounter,$article_content["article_id"]);
@@ -19,29 +29,12 @@ if ($article_content)
 
 	require_once "./views/articles/article_content.php";
 
-				if (!empty($sections)) {
-					echo "<p>Sections: ";
-					foreach ($sections as $section) {
-						$sectionArray = getSectionById($section["section_id"]);
-						echo "<a href='" . DIR_URL . $sectionArray["page"] . "' class='badge badge-pill badge-light'>" . $sectionArray["title"] . "</a> ";
-					}
-					echo "</p>";
-				}
-						
-				
-				if ( !empty($tags) ) {
-					echo "<p>Tags: ";
-					foreach ($tags as $tag) {
-						$tagArray = getTagById($tag["tag_id"]);
-						echo "<a href='" . DIR_URL . "tags/" . $tagArray["name"] . "' class='badge badge-pill badge-light'>" . $tagArray["name"] . "</a> ";
-					}
-					echo "</p>";
-				}
+	require_once "./views/articles/article_relations.php";
 
 	require_once "./views/footer.php";
 }
 else 
 {
-	redirect_to( DIR_URL . "404" );
+	$utility->redirect_to( DIR_URL . "404" );
 }
 ?>

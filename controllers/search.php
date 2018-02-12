@@ -1,5 +1,9 @@
 <?php
 
+require_once "./models/section.php";
+$section = new Section($db);
+$sections = $section->readAll();
+
 		require_once "./views/header.php";
 		
 		if ( isset($_POST["q"]) ) {

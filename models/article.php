@@ -33,11 +33,36 @@ class Article
 		return $result;
 	}
 
-	public function getArticleByUrl($title_url) {
+	function getArticlesSortedIdDesc() 
+	{
+		$stmt = $this->connection->query("SELECT * FROM " . $this->db_table . " ORDER BY article_id DESC");
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function getArticleByUrl($title_url) 
+	{
 		
 		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE title_url = :turl LIMIT 1");
 		$stmt->execute(array(':turl' => $title_url));
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function getArticleById($article_id) 
+	{
+		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE article_id = :aid LIMIT 1");
+		$stmt->execute(array(':aid' => $article_id));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function getLastArticles($number) 
+	{
+		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " ORDER BY posted DESC LIMIT :num");
+		$stmt->bindParam(':num', $number, PDO::PARAM_INT);
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $result;
 	}
 
@@ -48,6 +73,14 @@ class Article
 			return true;
 		}
 		return false;
+	}
+
+	function searchArticle($q) 
+	{
+		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE title LIKE :searchTerm");
+		$stmt->execute(array(':searchTerm' => '%'.htmlspecialchars(strip_tags($q)).'%'));
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
 	}
 
 }

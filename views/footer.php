@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <p>&copy 2017-<?= date('y') ?> 
-                    <a href="<?= $git_url ?>"><?= $cms_title ?></a></p>
+                    <a href="<?= GIT_URL ?>"><?= CMS_TITLE ?></a></p>
                 </div>
             </div>
         </div>

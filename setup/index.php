@@ -1,7 +1,9 @@
 <?php
-require_once "../include/pdo.php";
-require_once "../include/essentials.php";
-require_once "../include/functions.php";
+
+//change this
+$pdo = new PDO('mysql:host=localhost;port=3306;dbname=bikecms;charset=utf8', 'bikecms', 'bikecms');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 session_start();
 
 $sql = array();
@@ -12,6 +14,8 @@ $sql[] = "CREATE TABLE users (
 	pass		VARCHAR(128)    NOT NULL,
 	real_name	VARCHAR(255)    NOT NULL DEFAULT '',
 	email		VARCHAR(255)    NOT NULL DEFAULT '',
+	country		VARCHAR(255)    NOT NULL DEFAULT '',
+	city		VARCHAR(255)    NOT NULL DEFAULT '',
 	priv		TINYINT(1)      NOT NULL DEFAULT '0',
 	is_active	TINYINT(1)      NOT NULL DEFAULT '1',
 	PRIMARY KEY (user_id)
@@ -19,9 +23,9 @@ $sql[] = "CREATE TABLE users (
 
 
 // Password is a salted hash of 'demo' 
-$sql[] = "INSERT INTO users (name, pass, real_name, email, priv, is_active) 
-		  VALUES ('demo', '". password_encrypt('demo') . "', 'demo', 'demo@demo.demo', 0, 1),
-		  		 ('admin', '". password_encrypt('demo') . "', 'admin', 'admin@admin.admin', 1, 1)
+$sql[] = "INSERT INTO users (name, pass, real_name, email, country, city, priv, is_active) 
+		  VALUES ('demo', '". '$2y$10$OTQyZGY0MjE4YmVmZDlhYOd1uccGh/q.qUFGcrD5.BgyJwV9jtw22' . "', 'demo', 'demo@demo.demo', 'Canada', 'Toronto', 0, 1),
+		  		 ('admin', '". '$2y$10$MjZlOTQ5MDI0OWJkMTAyZOHz0YNwcAns6sJYD7HFNHC7N91WzwS.G' . "', 'admin', 'admin@admin.admin', 'Canada', 'Toronto', 1, 1)
 		  ";
 
 $sql[] = "CREATE TABLE section (
@@ -113,11 +117,6 @@ $sql[] = "CREATE TABLE sections (
 
 $sql[] = "INSERT INTO sections (article_id, section_id, rank) VALUES (1, 1, 3)";
 
-/*
-echo "<pre>";
-print_r($stmt);
-echo "<pre>";
-*/
 
 $_SESSION['success_count'] = 0;
 $_SESSION['error_count'] = 0;
@@ -127,7 +126,7 @@ foreach ($sql as $query) {
 
 	if(!$stmt) {
 		$_SESSION['error_count']++;
-		$_SESSION['error_details'] = $pdo->errorInfo();
+		$_SESSION['error_details'] = $this->connection->errorInfo();
 
 	} else {
 		$_SESSION['success_count']++;

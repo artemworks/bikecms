@@ -37,6 +37,14 @@ class Purchase
 		return $row["{$column}"];
 	}
 
+	function getTransById($trans_id) 
+	{
+		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE trans_id = :tid LIMIT 1");
+		$stmt->execute(array(':tid' => $trans_id));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
 }
 
 ?>

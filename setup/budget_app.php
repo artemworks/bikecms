@@ -1,7 +1,8 @@
 <?php
-require_once "../include/pdo.php";
-require_once "../include/essentials.php";
-require_once "../include/functions.php";
+
+//change this
+$pdo = new PDO('mysql:host=localhost;port=3306;dbname=bikecms;charset=utf8', 'bikecms', 'bikecms');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 session_start();
 
 $sql = array();

@@ -19,7 +19,7 @@ switch ($controller) {
 		break;
 
 	case 'logout':
-		logOut();
+		require_once "./controllers/logout.php";
 		break;
 
 	case 'articles':

@@ -1,7 +1,10 @@
 <?php
 
-require_once "./models/purchase.php";
+require_once "./models/section.php";
+$section = new Section($db);
+$sections = $section->readAll();
 
+require_once "./models/purchase.php";
 $purchase = new Purchase($db);
 $transactions = $purchase->readAll();
 $sum_amount = $purchase->sumAll("amount");

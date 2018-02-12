@@ -29,6 +29,33 @@ class User
 		return $result;
 	}
 
+	public function getUserById($user_id) 
+	{
+		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE user_id = :uid LIMIT 1");
+		$stmt->execute(array(':uid' => $user_id));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function getUserByName($name) {
+
+		$name = htmlentities($name);
+		
+		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE name = :nm LIMIT 1");
+		$stmt->execute(array(':nm' => $name));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function addUser($name, $pass, $realname, $email, $country, $city) 
+	{
+		$stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (name, pass, real_name, email, country, city) VALUES (:nm, :pw, :rnm, :eml, :con, :cty)");
+		$stmt->execute(array(':nm' => $name, ':pw' => $pass, ':rnm' => $realname, ':eml' => $email, ':con' => $country, ':cty' => $city));
+		$user_id = $this->connection->lastInsertId();
+		return $user_id;
+	}
+
+
 }
 
 ?>
