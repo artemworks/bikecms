@@ -47,7 +47,7 @@ switch ($page) {
 		break;
 
 	default:
-		redirect_to( DIR_URL . "404" );
+		require_once "./controllers/default.php";
 		break;
 }
 

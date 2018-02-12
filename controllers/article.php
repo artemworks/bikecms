@@ -23,7 +23,7 @@ if ($article_content)
 					echo "<p>Sections: ";
 					foreach ($sections as $section) {
 						$sectionArray = getSectionById($section["section_id"]);
-						echo "<a href='" . $dir_url . $sectionArray["page"] . "' class='badge badge-pill badge-light'>" . $sectionArray["title"] . "</a> ";
+						echo "<a href='" . DIR_URL . $sectionArray["page"] . "' class='badge badge-pill badge-light'>" . $sectionArray["title"] . "</a> ";
 					}
 					echo "</p>";
 				}
@@ -33,7 +33,7 @@ if ($article_content)
 					echo "<p>Tags: ";
 					foreach ($tags as $tag) {
 						$tagArray = getTagById($tag["tag_id"]);
-						echo "<a href='" . $dir_url . "tags/" . $tagArray["name"] . "' class='badge badge-pill badge-light'>" . $tagArray["name"] . "</a> ";
+						echo "<a href='" . DIR_URL . "tags/" . $tagArray["name"] . "' class='badge badge-pill badge-light'>" . $tagArray["name"] . "</a> ";
 					}
 					echo "</p>";
 				}

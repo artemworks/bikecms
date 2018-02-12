@@ -18,7 +18,7 @@ class Tag
 	public function readAll()
 	{
 		$query = "SELECT * FROM " . $this->db_table . 
-				 " ORDER BY posted DESC";
+				 " ORDER BY tag_id DESC";
 		$stmt = $this->connection->prepare($query);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
