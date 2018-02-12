@@ -3,7 +3,7 @@
 require_once "./models/article.php";
 
 $article = new Article($db);
-$article_content = $article->getArticleByUrl(htmlentities(ltrim($nested, '/')));
+$article_content = $article->getArticleByUrl(htmlentities(ltrim($action, '/')));
 
 if ($article_content)
 {

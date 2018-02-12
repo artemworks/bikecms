@@ -8,7 +8,7 @@ foreach ($articles as $article) {
 				
 <p>					
 	<?= htmlentities($date) ?>
-	<a href="<?= htmlentities($page) . "/" . htmlentities($article["title_url"]) ?>">
+	<a href="<?= htmlentities($controller) . "/" . htmlentities($article["title_url"]) ?>">
 		<?= htmlentities($article["title"]) ?>
 	</a>
 </p>

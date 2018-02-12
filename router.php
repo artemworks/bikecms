@@ -1,10 +1,10 @@
 <?php
 
-// index.php?one=$1&two=$2 (.htaccess)
-isset($_GET["one"]) ? $page = htmlentities($_GET["one"]) : $page = "homepage";
-isset($_GET["two"]) ? $nested = htmlentities($_GET["two"]) : $nested = "404";
+// index.php?controller=$1&action=$2 (.htaccess)
+isset($_GET["controller"]) ? $controller = htmlentities($_GET["controller"]) : $controller = "homepage";
+isset($_GET["action"]) ? $action = htmlentities($_GET["action"]) : $action = "404";
 
-switch ($page) {
+switch ($controller) {
 
 	case 'homepage':
 		require_once "./controllers/homepage.php";
@@ -23,9 +23,9 @@ switch ($page) {
 		break;
 
 	case 'articles':
-		if ( ! $nested || $nested == "/" ) {
+		if ( ! $action || $action == "/" ) {
 			require_once "./controllers/articles.php";
-		} else if ( $nested ) {
+		} else if ( $action ) {
 			require_once "./controllers/article.php";
 		}
 		break;

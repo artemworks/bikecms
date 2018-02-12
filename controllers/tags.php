@@ -2,7 +2,7 @@
 
 		require_once "./views/header.php";
 
-		if ( ! $_GET["two"] || $_GET["two"] == "/" ) {
+		if ( ! $action || $action == "/" ) {
 			echo "<h1 class=\"display-4\">My Tags</h1>";
 			$tags = getTags();
 			echo "<h5>";
@@ -10,7 +10,7 @@
 				if ( $tag["is_active"] ) {
 					echo 
 						"<a href=" . $dir_url . 
-						htmlentities($page) . "/" . 
+						htmlentities($controller) . "/" . 
 						htmlentities($tag["name"]) . " class='badge badge-pill badge-info'>" . 
 						htmlentities($tag["name"]) . "</a> "
 					;
@@ -18,8 +18,8 @@
 			}
 			echo "</h5>";
 		}
-		else if ( $_GET["two"] ) {
-			$name = htmlentities(ltrim($_GET["two"], '/'));
+		else if ( $action ) {
+			$name = htmlentities(ltrim($action, '/'));
 			echo "<h1 class=\"display-4\">My Articles for tag <i>" . $name . "</i></h1>";
 			$tag_id = getTagIdByUrl($name)["tag_id"];
 			$articles = getArticlesForTag($tag_id);

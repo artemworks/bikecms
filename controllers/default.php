@@ -9,7 +9,7 @@ foreach ($sections as $section) {
 	$pages_arr[] = $section["page"];
 }
 
-if (in_array($page, $pages_arr)) {
+if (in_array($controller, $pages_arr)) {
 	require_once "./views/header.php";
 	require_once "./views/section_title.php";
 	require_once "./views/footer.php";
