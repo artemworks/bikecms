@@ -1,4 +1,3 @@
-
 <p>
 	Total expenses: $ 
 	<b><?= number_format($sum_amount, 2, ".", " ") ?></b>
@@ -13,15 +12,16 @@
 <table class="table-bordered">
 
 <?php
-	while ($row = $transactions->fetch(PDO::FETCH_ASSOC)) {
+	foreach($transactions as $transaction) 
+	{
 		echo "<tr><td>" .
-			DateTime::createFromFormat('Y-m-d H:i:s', $row["trans_date"])->format('M, d Y') . 
+			DateTime::createFromFormat('Y-m-d H:i:s', $transaction["trans_date"])->format('M, d Y') . 
 			"</td><td>" . 
-			$row["store"] . 
+			$transaction["store"] . 
 			"</td><td>" . 
-			$row["amount"] . 
+			$transaction["amount"] . 
 			"</td><td>" . 
-			$row["tax"] . 
+			$transaction["tax"] . 
 			"</td></tr>";
 	}
 ?>

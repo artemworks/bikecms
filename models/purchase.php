@@ -25,7 +25,8 @@ class Purchase
 				 " ORDER BY trans_id DESC";
 		$stmt = $this->connection->prepare($query);
 		$stmt->execute();
-		return $stmt;
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
 	}
 
 	public function sumAll($column)
@@ -42,6 +43,18 @@ class Purchase
 		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE trans_id = :tid LIMIT 1");
 		$stmt->execute(array(':tid' => $trans_id));
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function getCatById($trans_id) 
+	{
+		$stmt = $this->connection->prepare("SELECT * 
+			FROM " . $this->db_table . " 
+			LEFT JOIN b_categories 
+			ON b_transactions.cat_id=b_categories.cat_id  
+			WHERE trans_id = :tid");
+		$stmt->execute(array(':tid' => $trans_id));
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $result;
 	}
 

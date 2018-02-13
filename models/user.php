@@ -47,6 +47,22 @@ class User
 		return $result;
 	}
 
+	public function restrictAccessToCMS() {
+
+		if ( ! isset($_SESSION['name']) || strlen($_SESSION['name']) < 1  ) {
+	        $_SESSION['error'] = "Forbidden. You are not logged in!";
+	        header("Location: ../login");
+	        return;
+		} else {
+			$user = $this->getUserById($_SESSION['user_id']);
+			if ( !$user["priv"] ) {
+			    $_SESSION['error'] = "Forbidden. You are not allowed to enter this section!";
+			    header("Location: ../");
+			    return;
+			}
+		}
+	}
+
 	public function addUser($name, $pass, $realname, $email, $country, $city) 
 	{
 		$stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (name, pass, real_name, email, country, city) VALUES (:nm, :pw, :rnm, :eml, :con, :cty)");
@@ -54,7 +70,6 @@ class User
 		$user_id = $this->connection->lastInsertId();
 		return $user_id;
 	}
-
 
 }
 

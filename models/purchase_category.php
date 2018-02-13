@@ -28,7 +28,7 @@ class PurchaseCategory
 		return $stmt;
 	}
 
-	function getCatById($cat_id) 
+	public function getCatById($cat_id) 
 	{
 		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE cat_id = :cid LIMIT 1");
 		$stmt->execute(array(':cid' => $cat_id));
