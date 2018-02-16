@@ -26,6 +26,16 @@
         <input type="text" name="email" class="form-control" Placeholder="Enter email">
       </div>
 
+      <div class="form-group">
+        <label for="title">Country</label>
+        <input type="text" name="country" class="form-control" Placeholder="Enter country">
+      </div>
+
+      <div class="form-group">
+        <label for="title">City</label>
+        <input type="text" name="city" class="form-control" Placeholder="Enter city">
+      </div>
+
       <label for="is_active">Privilege?</label>
 
         <div class="form-group">

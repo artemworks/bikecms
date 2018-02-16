@@ -38,7 +38,7 @@ class Purchase
 		return $row["{$column}"];
 	}
 
-	function getTransById($trans_id) 
+	public function getTransById($trans_id) 
 	{
 		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE trans_id = :tid LIMIT 1");
 		$stmt->execute(array(':tid' => $trans_id));
@@ -56,6 +56,57 @@ class Purchase
 		$stmt->execute(array(':tid' => $trans_id));
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $result;
+	}
+
+	public function addTransaction($trans_date, $store, $amount, $tax, $cat_id, $is_active){
+  		
+        $stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (trans_date, store, amount, tax, cat_id, is_active) 
+                                VALUES (:tdt, :str, :amt, :tax, :cid, :isa)");
+
+        $stmt->execute(array(
+                      ':tdt' => $trans_date,
+                      ':str' => $store,
+                      ':amt' => $amount,
+                      ':tax' => $tax,
+                      ':cid' => $cat_id,
+                      ':isa' => $is_active)
+                        );
+
+        $trans_id = $this->connection->lastInsertId();
+
+		return $trans_id;
+	}
+
+	public function delTransaction($trans_id){
+  		
+  		$stmt = $this->connection->prepare("DELETE FROM " . $this->db_table . " WHERE trans_id = :tid");
+
+		if( $stmt->execute(array( ':tid' => $trans_id )) )
+		{
+			return true;
+		}
+		
+		return false;
+	}
+
+
+	public function updateTransaction($trans_date, $store, $amount, $tax, $cat_id, $is_active, $trans_id)
+	{
+
+        $stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET 
+                         trans_date = :tdt, 
+                         store = :str, 
+                         amount = :amt, 
+                         tax = :tax, 
+                         cat_id = :cid, 
+                         is_active = :isa 
+                               WHERE trans_id = :tid");
+  		
+		if( $stmt->execute(array(':tdt' => $trans_date, ':str' => $store, ':amt' => $amount, ':tax' => $tax, ':cid' => $cat_id, ':isa' => $is_active, ':tid' => $trans_id)) )
+		{
+			return true;
+		}	
+		return false;
 	}
 
 }

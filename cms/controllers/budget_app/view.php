@@ -10,8 +10,8 @@ if ( isset($_POST['cancel']) ) {
   return;
 }
 
-if ( isset($_POST['purchase_id']) && isset($_POST['delete'])) {
-  header("Location: " . DIR_URL . "cms/purchase/delete/" . $_POST['purchase_id']);
+if ( isset($_POST['trans_id']) && isset($_POST['delete'])) {
+  header("Location: " . DIR_URL . "cms/budget_app/delete/" . $_POST['trans_id']);
   return;
 }
 

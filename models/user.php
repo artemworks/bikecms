@@ -63,12 +63,36 @@ class User
 		}
 	}
 
-	public function addUser($name, $pass, $realname, $email, $country, $city) 
+	public function addUser($name, $pass, $realname, $email, $priv, $is_active, $country, $city) 
 	{
-		$stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (name, pass, real_name, email, country, city) VALUES (:nm, :pw, :rnm, :eml, :con, :cty)");
-		$stmt->execute(array(':nm' => $name, ':pw' => $pass, ':rnm' => $realname, ':eml' => $email, ':con' => $country, ':cty' => $city));
+		$stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (name, pass, real_name, email, priv, is_active, country, city) VALUES (:nm, :pw, :rnm, :eml, :prv, :isa, :con, :cty)");
+		$stmt->execute(array(':nm' => $name, ':pw' => $pass, ':rnm' => $realname, ':eml' => $email, ':prv' => $priv, ':isa' => $is_active, ':con' => $country, ':cty' => $city));
 		$user_id = $this->connection->lastInsertId();
 		return $user_id;
+	}
+
+	public function delUser($user_id){
+  		
+  		$stmt = $this->connection->prepare("DELETE FROM " . $this->db_table . " WHERE user_id = :uid");
+
+		if( $stmt->execute(array( ':uid' => $user_id )) )
+		{
+			return true;
+		}
+		
+		return false;
+	}
+
+
+	public function updateUser($name, $is_active, $tag_id){
+  		
+    	$stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET name = :nm, is_active = :isa WHERE tag_id = :tid");
+
+		if( $stmt->execute(array( ':nm' => $name, ':isa' => $is_active, ':tid' => $tag_id)) )
+		{
+			return true;
+		}	
+		return false;
 	}
 
 }

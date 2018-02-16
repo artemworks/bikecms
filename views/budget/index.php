@@ -9,20 +9,31 @@
 	Transactions:
 </p>
 
-<table class="table-bordered">
+<table class="table-budget table-bordered">
+<thead>
+	<tr>
+		<td>Date</td>
+		<td>Store</td>
+		<td>Amount</td>
+		<td>HST</td>
+	</tr>
+</thead>
 
 <?php
 	foreach($transactions as $transaction) 
 	{
-		echo "<tr><td>" .
-			DateTime::createFromFormat('Y-m-d H:i:s', $transaction["trans_date"])->format('M, d Y') . 
-			"</td><td>" . 
-			$transaction["store"] . 
-			"</td><td>" . 
-			$transaction["amount"] . 
-			"</td><td>" . 
-			$transaction["tax"] . 
-			"</td></tr>";
+		if ( $transaction["is_active"] ) 
+		{
+			echo "<tr><td>" .
+				DateTime::createFromFormat('Y-m-d H:i:s', $transaction["trans_date"])->format('M, d Y') . 
+				"</td><td>" . 
+				$transaction["store"] . 
+				"</td><td>" . 
+				$transaction["amount"] . 
+				"</td><td>" . 
+				$transaction["tax"] . 
+				"</td></tr>";
+		}
 	}
 ?>
 

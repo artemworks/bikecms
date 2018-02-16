@@ -20,7 +20,6 @@ body {
   min-height: 100%;
 }
 
-
 footer {
   position: absolute;
   right: 0;
@@ -28,4 +27,8 @@ footer {
   left: 0;
   padding: 1.5rem 0 0.5rem 0;
   background-color: #f8f9fa !important;
+}
+
+.table-budget td {
+  padding: 0.7rem;
 }

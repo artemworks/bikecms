@@ -11,21 +11,21 @@ if ( isset($_POST['cancel']) ) {
 }
 
 if ( isset($_POST["delete"]) && 
-     isset($_POST["purchase_id"]) ) {
+       isset($_POST["trans_id"]) ) {
 
-  $purchase_id = htmlentities($_POST["purchase_id"]);
+  $trans_id = htmlentities($_POST["trans_id"]);
   
-  $result = $purchase->delTag($purchase_id);
+  $result = $purchase->delTransaction($trans_id);
   
   if ( $result ) 
   {           
-    $_SESSION['success'] = "Tag deleted";
-    header("Location: " . DIR_URL . "cms/purchase");
+    $_SESSION['success'] = "Transaction deleted";
+    header("Location: " . DIR_URL . "cms/budget_app");
   }
   else
   {
-    $_SESSION['error'] = "Tag not deleted";
-    header("Location: " . DIR_URL . "cms/purchase");    
+    $_SESSION['error'] = "Transaction not deleted";
+    header("Location: " . DIR_URL . "cms/budget_app");    
   }
 
 } 

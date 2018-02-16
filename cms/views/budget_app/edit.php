@@ -1,3 +1,7 @@
+<?php
+$transaction = $purchase->getTransById($action_id);
+?>
+
 <h1 class="display-4">Edit Transaction <b>"<?= $transaction["trans_date"] ?>"</b></h1>
 
 <form method="POST" enctype="multipart/form-data" onsubmit="return postForm()">
@@ -25,7 +29,6 @@
             <label for="dateArchived">Category</label>
             <select class="form-control" name="cat_id">
               <?php
-                $cats = getCats();
                 foreach ($cats as $cat) {
                   echo '<option value="' . 
                         $cat["cat_id"] . '"';

@@ -45,7 +45,9 @@ if ( isset($_POST['reg_name']) && isset($_POST['reg_pass']) &&
 						if ( strlen($pass) >= 6 ) {
 
 							$pass = $utility->password_encrypt($pass);
-							$user_id = $user->addUser($username, $pass, $realname, $email, $country, $city);
+							$priv = 0;
+							$is_active = 1;
+							$user_id = $user->addUser($username, $pass, $realname, $email, $priv, $is_active, $country, $city);
 							
 							if ( $user_id !== false && !empty($user_id) ) 
 							{

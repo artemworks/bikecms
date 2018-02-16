@@ -15,16 +15,16 @@ if ( isset($_POST["delete"]) &&
 
   $user_id = htmlentities($_POST["user_id"]);
   
-  $result = $user->delTag($user_id);
+  $result = $user->delUser($user_id);
   
   if ( $result ) 
   {           
-    $_SESSION['success'] = "Tag deleted";
+    $_SESSION['success'] = "User deleted";
     header("Location: " . DIR_URL . "cms/user");
   }
   else
   {
-    $_SESSION['error'] = "Tag not deleted";
+    $_SESSION['error'] = "User not deleted";
     header("Location: " . DIR_URL . "cms/user");    
   }
 
