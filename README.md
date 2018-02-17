@@ -4,10 +4,12 @@ Status: in the process of development
 
 Backlog:
 
-- As a User, I want to be able to restore password, so that I can log in (high priority, low risk).
-- As a User, I want to be able to comment any article, so that I can express my opinion (medium priority, low risk).
-- As a User, I want to be able to use breadcrumb, so that I can navigate quickly (medium priority, low risk).
-- As an Admin, I want to be able to upload pictures, so that I can paste them in any article (medium priority, low risk).
+- As a User, I want to be able to restore password, so that I can log in. (high priority, low risk)
+- As a User, I want to be able to use pagination, so that I can access articles quickly. (high priority, low risk)
+- As a User, I want to be able to use breadcrumb, so that I can navigate quickly. (medium priority, low risk)
+- As a User, I want to be able to comment any article, so that I can express my opinion. (medium priority, low risk)
+- As a User (Developer), I want to be able to consume REST API, so that I can build another User Interface. (medium priority, low risk)
+- As an Admin, I want to be able to upload pictures, so that I can paste them in any article. (medium priority, low risk)
 
 -----------
 
