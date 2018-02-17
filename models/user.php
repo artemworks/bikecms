@@ -13,6 +13,8 @@ class User
 	public $email;
 	public $priv;
 	public $is_active;
+	public $country;
+	public $city;
 	
 	function __construct($db)
 	{
@@ -65,8 +67,8 @@ class User
 
 	public function addUser($name, $pass, $realname, $email, $priv, $is_active, $country, $city) 
 	{
-		$stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (name, pass, real_name, email, priv, is_active, country, city) VALUES (:nm, :pw, :rnm, :eml, :prv, :isa, :con, :cty)");
-		$stmt->execute(array(':nm' => $name, ':pw' => $pass, ':rnm' => $realname, ':eml' => $email, ':prv' => $priv, ':isa' => $is_active, ':con' => $country, ':cty' => $city));
+		$stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (name, pass, real_name, email, priv, is_active, country, city) VALUES (:nm, :pw, :rnm, :eml, :priv, :isa, :con, :cty)");
+		$stmt->execute(array(':nm' => $name, ':pw' => $pass, ':rnm' => $realname, ':eml' => $email, ':priv' => $priv, ':isa' => $is_active, ':con' => $country, ':cty' => $city));
 		$user_id = $this->connection->lastInsertId();
 		return $user_id;
 	}
@@ -84,11 +86,29 @@ class User
 	}
 
 
-	public function updateUser($name, $is_active, $tag_id){
+	public function updateUser($name, $pass, $realname, $email, $priv, $is_active, $country, $city, $user_id){
   		
-    	$stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET name = :nm, is_active = :isa WHERE tag_id = :tid");
+    	$stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET 
+				    		name = :nm, 
+				    		pass = :pw, 
+				    		real_name = :rnm, 
+				    		email = :eml, 
+				    		priv = :priv, 
+				    		is_active = :isa, 
+				    		country = :con, 
+				    		city = :cty 
+                         WHERE user_id = :uid");
 
-		if( $stmt->execute(array( ':nm' => $name, ':isa' => $is_active, ':tid' => $tag_id)) )
+		if( $stmt->execute(array( 
+							':nm' => $name, 
+							':pw' => $pass, 
+							':rnm' => $realname, 
+							':eml' => $email, 
+							':priv' => $priv, 
+							':isa' => $is_active, 
+							':con' => $country, 
+							':cty' => $city, 
+							':uid' => $user_id)) )
 		{
 			return true;
 		}	

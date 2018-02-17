@@ -6,7 +6,7 @@ $sections = $section->readAll();
 
 require_once "./models/article.php";
 $article = new Article($db);
-$lastArticles = $article->getLastArticles(3);
+$lastArticles = $article->getLastArticles(NUM_HOMEPAGE);
 
 require_once "./views/homepage/header_cards.php";
 

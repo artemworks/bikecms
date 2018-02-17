@@ -43,17 +43,19 @@
 	
   	<div class="container">
   		<div class="row">
-  			<div class="col-12">
+			<div class="card-deck">
 
-				<div class="card-deck">
 				<?php
-
+				$number = 0;
 				foreach ($lastArticles as $art) {
 					if ( $art["is_active"] ) {
+						$number++;
 						$date = DateTime::createFromFormat('Y-m-d H:i:s', $art["posted"])->format('M, n');
+
 						echo '
+							 
 							  <div class="card">
-							    <img class="card-img-top" src="' . DIR_URL_IMG . $art["cover"] . '" alt="' . $art["title"] . '">
+							    <div class="card-crop"><img class="card-img-top" src="' . DIR_URL_IMG . $art["cover"] . '" alt="' . $art["title"] . '"></div>
 							    <div class="card-body">
 							      <h4 class="card-title"><a href=' . DIR_URL . 'articles/' . $art["title_url"] . '>' . $art["title"] . '</a></h4>
 							      <p class="card-text">' . $art["description"] . '</p>
@@ -62,9 +64,18 @@
 							      <small class="text-muted">' . $date . '</small>
 							    </div>
 							  </div>
+							 
 								';
 						}
+
+						if ($number % 3 == 0) {
+							echo '
+								</div>
+								<div class="card-deck">
+							';
+						}
+
 					}
 				?>
-
-				</div>
+			</div>
+		</div>

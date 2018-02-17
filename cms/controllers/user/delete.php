@@ -3,6 +3,7 @@
 require_once DIR . "models/user.php";
 $user = new User($db);
 $users = $user->readAll();
+$userContent = $user->getUserById($action_id);
 
 if ( isset($_POST['cancel']) ) {
   $_SESSION['success'] = "Cancelled";

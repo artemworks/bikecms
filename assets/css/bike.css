@@ -32,3 +32,12 @@ footer {
 .table-budget td {
   padding: 0.7rem;
 }
+
+.card-deck {
+  padding-top: 2rem;
+}
+
+.card-crop {
+  max-height: 15vw;
+  overflow:hidden;
+}

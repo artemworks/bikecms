@@ -15,4 +15,6 @@ define("GIT_URL", "https://github.com/artemworks/bikecms");
 
 define("CMS_TITLE", "BikeCMS");
 
+define("NUM_HOMEPAGE", 6);
+
 ?>

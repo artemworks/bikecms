@@ -119,10 +119,10 @@ class Article
 		return false;
 	}
 
-	public function updateArticle($posted, $archiving, $title, $title_url, $description, $body, $cover, $user_id, $is_active, $article_id)
+	public function updateArticle($posted, $archiving, $title, $title_url, $description, $body, $cover, $user_id, $is_active, $views, $article_id)
 	{
   		
-    	$stmt = $this->connection->prepare("UPDATE Article SET 
+    	$stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET 
                          posted = :pos, 
                          archiving = :arc, 
                          title = :tit, 
@@ -131,21 +131,22 @@ class Article
                          body = :bod, 
                          cover = :cov,
                          user_id = :uid, 
-                         is_active = :isa 
-                               WHERE article_id = :aid
-                               ");
+                         is_active = :isa,
+                         views = :vw 
+                         	WHERE article_id = :aid");
 
     	if( $stmt->execute(array(
-    				  ':aid' => $article_id,
-                      ':pos' => $posted,
+    				  ':pos' => $posted,
                       ':arc' => $archiving,
                       ':tit' => $title,
                       ':tiu' => $title_url,
                       ':des' => $description,
                       ':bod' => $body,
                       ':cov' => $cover,
-                      ':use' => $user_id,
-                      ':ise' => $is_active)) )
+                      ':uid' => $user_id,
+                      ':isa' => $is_active,
+                      ':vw' => $views,
+                      ':aid' => $article_id)) )
 		{
 			return true;
 		}	

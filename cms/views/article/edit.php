@@ -28,13 +28,16 @@
 
     <div class="form-group col-md-2">
 
-            <label for="datePosted">Date posted</label>
+            <label for="posted">Date posted</label>
             <input type="text" class="form-control" name="posted" value="<?= $articleContent["posted"] ?>">
 
-            <label for="dateArchived">Archiving Date</label>
+            <label for="archiving">Archiving Date</label>
             <input type="text" class="form-control" name="archiving" value="<?= $articleContent["archiving"] ?>">
 
-            <label for="dateArchived">As a User</label>
+            <label for="views">Views</label>
+            <input type="text" class="form-control" name="views" value="<?= $articleContent["views"] ?>">
+
+            <label for="user_id">As a User</label>
             <select class="form-control" name="user_id">
               <?php
                 $users = $user->readAll();

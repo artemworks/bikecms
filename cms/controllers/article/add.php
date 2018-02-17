@@ -38,8 +38,8 @@ if ( isset($_POST["add"]) &&
 
       $article_id = $article->addArticle($posted, $archiving, $title, $title_url, $description, $body, $cover, $user_id, $is_active);
 
-      //insertSections($article_id);
-      //insertTags($article_id);
+      $section->insertSections($article_id);
+      $tag->insertTags($article_id);
 
       if ( !$article_id || empty($article_id) ) 
       {

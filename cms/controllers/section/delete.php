@@ -3,6 +3,7 @@
 require_once DIR . "models/section.php";
 $section = new Section($db);
 $sections = $section->readAll();
+$sectionContent = $section->getSectionById($action_id);
 
 if ( isset($_POST['cancel']) ) {
   $_SESSION['success'] = "Cancelled";
