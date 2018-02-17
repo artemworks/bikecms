@@ -1,6 +1,8 @@
-BikeCMS: Content Management System built with handcoded object oriented PHP, MySQL, and Bootstrap 4 framework.
+**BikeCMS**: Content Management System built with handcoded object oriented PHP, MySQL, and Bootstrap 4 framework.
 
 Status: in the process of development
+
+---------------------------------
 
 Backlog:
 
@@ -11,7 +13,7 @@ Backlog:
 - As a User (Developer), I want to be able to consume REST API, so that I can build another User Interface. (medium priority, low risk)
 - As an Admin, I want to be able to upload pictures, so that I can paste them in any article. (medium priority, low risk)
 
------------
+---------------------------------
 
 Product screenshots:
 
