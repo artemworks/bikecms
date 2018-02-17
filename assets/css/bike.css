@@ -36,8 +36,3 @@ footer {
 .card-deck {
   padding-top: 2rem;
 }
-
-.card-crop {
-  max-height: 15vw;
-  overflow:hidden;
-}
