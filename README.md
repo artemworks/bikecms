@@ -1,4 +1,6 @@
-**BikeCMS**: Content Management System built with handcoded object oriented PHP, MySQL, and Bootstrap 4 framework.
+For bloggers, who need to publish articles and media, **BikeCMS is a standalone content management system** that is light and highly flexible. Unlike Wordpress or Drupal, BikeCMS offers simplicity and high speed even with the cheapest hosting package.
+
+BikeCMS was built with handcoded object oriented PHP (MVC pattern), MySQL database, and Bootstrap 4 front-end framework.
 
 Status: in the process of development
 
