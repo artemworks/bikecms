@@ -53,8 +53,8 @@ class Section
 	{
 		$stmt = $this->connection->prepare("SELECT * 
 			FROM sections 
-			LEFT JOIN article  
-			ON sections.article_id=article.article_id 
+			LEFT JOIN articles 
+			ON sections.article_id=articles.article_id 
 			WHERE section_id = :sid");
 		$stmt->execute(array(':sid' => $section_id));
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -4,7 +4,7 @@ class Article
 {
 
 	private $connection;
-	private $db_table = "article";
+	private $db_table = "articles";
 
 	public $article_id;
 	public $posted;

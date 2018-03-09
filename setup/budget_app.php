@@ -1,9 +1,9 @@
 <?php
-
-//change this
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=bikecms;charset=utf8', 'bikecms', 'bikecms');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 session_start();
+
+require_once "../models/db.php";
+$database = new Database();
+$db = $database->getConnection();
 
 $sql = array();
 
@@ -47,7 +47,8 @@ $_SESSION['success_count'] = 0;
 $_SESSION['error_count'] = 0;
 
 foreach ($sql as $query) {
-	$stmt = $pdo->query($query);
+	$stmt = $db->prepare($query);
+	$stmt->execute();
 
 	if(!$stmt) {
 		$_SESSION['error_count']++;

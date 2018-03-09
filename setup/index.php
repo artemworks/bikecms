@@ -1,10 +1,9 @@
 <?php
-
-//change this
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=bikecms;charset=utf8', 'bikecms', 'bikecms');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 session_start();
+
+require_once "../models/db.php";
+$database = new Database();
+$db = $database->getConnection();
 
 $sql = array();
 
@@ -53,7 +52,7 @@ $sql[] = "CREATE TABLE tag (
 
 $sql[] = "INSERT INTO tag (name, is_active) VALUES ('thoughts', 1), ('reality', 1), ('weather', 1)";
 
-$sql[] = "CREATE TABLE article (
+$sql[] = "CREATE TABLE articles (
 	article_id	INT(11)         NOT NULL AUTO_INCREMENT,
 	posted 		DATETIME        NOT NULL,
 	archiving 	DATETIME        NULL DEFAULT NULL,
@@ -68,7 +67,7 @@ $sql[] = "CREATE TABLE article (
 	PRIMARY KEY (article_id)
 	)";
 
-$sql[] = "INSERT INTO article (posted, archiving, title, title_url, description, body, cover, user_id, is_active, views) 
+$sql[] = "INSERT INTO articles (posted, archiving, title, title_url, description, body, cover, user_id, is_active, views) 
 		  VALUES ('2017-11-01 10:59:32', 
 		  		  '2017-12-02 10:59:32', 
 		  		  'Welcome to the BikeCMS', 
@@ -122,11 +121,12 @@ $_SESSION['success_count'] = 0;
 $_SESSION['error_count'] = 0;
 
 foreach ($sql as $query) {
-	$stmt = $pdo->query($query);
+	$stmt = $db->prepare($query);
+	$stmt->execute();
 
 	if(!$stmt) {
 		$_SESSION['error_count']++;
-		$_SESSION['error_details'] = $this->connection->errorInfo();
+		$_SESSION['error_details'] = $db->errorInfo();
 
 	} else {
 		$_SESSION['success_count']++;

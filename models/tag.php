@@ -56,8 +56,8 @@ class Tag
 	{
 		$stmt = $this->connection->prepare("SELECT * 
 			FROM tags  
-			LEFT JOIN article  
-			ON tags.article_id=article.article_id 
+			LEFT JOIN articles 
+			ON tags.article_id=articles.article_id 
 			WHERE tag_id = :tid");
 		$stmt->execute(array(':tid' => $tag_id));
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
