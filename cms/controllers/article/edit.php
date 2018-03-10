@@ -24,7 +24,7 @@ if ( isset($_POST["edit"]) &&
     isset($_POST["views"]) ) 
 {
     
-    if ( isset($_FILES["cover_image"]) && !empty($_FILES["cover_image"]["name"]) ) 
+    if ( isset($_FILES["cover_image"]) && !empty($_FILES["cover_image"]["name"]) && !$_FILES["cover_image"]['error'] ) 
     {
       $coverImage = $_FILES["cover_image"]["name"];
       $coverPath = DIR_IMG . basename($_FILES["cover_image"]["name"]);
@@ -34,6 +34,7 @@ if ( isset($_POST["edit"]) &&
     {
       $coverImage = $_POST["cover_image"];
     }
+
 
     $posted = $_POST["posted"];
     $archiving = $_POST["archiving"]; 
