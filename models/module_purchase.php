@@ -7,6 +7,7 @@ class Purchase
 	private $db_table = "b_transactions";
 
 	public $trans_id;
+  public $dropbox_url;
 	public $trans_date;
 	public $store;
 	public $amount;
@@ -58,12 +59,13 @@ class Purchase
 		return $result;
 	}
 
-	public function addTransaction($trans_date, $store, $amount, $tax, $cat_id, $is_active){
+	public function addTransaction($dropbox_url, $trans_date, $store, $amount, $tax, $cat_id, $is_active){
 
-        $stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (trans_date, store, amount, tax, cat_id, is_active)
-                                VALUES (:tdt, :str, :amt, :tax, :cid, :isa)");
+        $stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (dropbox_url, trans_date, store, amount, tax, cat_id, is_active)
+                                VALUES (:dbu, :tdt, :str, :amt, :tax, :cid, :isa)");
 
         $stmt->execute(array(
+                      ':dbu' => $dropbox_url,
                       ':tdt' => $trans_date,
                       ':str' => $store,
                       ':amt' => $amount,
@@ -90,10 +92,11 @@ class Purchase
 	}
 
 
-	public function updateTransaction($trans_date, $store, $amount, $tax, $cat_id, $is_active, $trans_id)
+	public function updateTransaction($dropbox_url, $trans_date, $store, $amount, $tax, $cat_id, $is_active, $trans_id)
 	{
 
         $stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET
+                         dropbox_url = :dbu,
                          trans_date = :tdt,
                          store = :str,
                          amount = :amt,
@@ -102,7 +105,7 @@ class Purchase
                          is_active = :isa
                          WHERE trans_id = :tid");
 
-		if( $stmt->execute(array(':tdt' => $trans_date, ':str' => $store, ':amt' => $amount, ':tax' => $tax, ':cid' => $cat_id, ':isa' => $is_active, ':tid' => $trans_id)) )
+		if( $stmt->execute(array(':dbu' => $dropbox_url, ':tdt' => $trans_date, ':str' => $store, ':amt' => $amount, ':tax' => $tax, ':cid' => $cat_id, ':isa' => $is_active, ':tid' => $trans_id)) )
 		{
 			return true;
 		}

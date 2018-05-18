@@ -18,13 +18,25 @@
   </ol>
 </nav>
 
-<p>
-  <b>Date:</b> <?= $date ?> <br />
-  <b>Start time:</b> <?= $time ?> <br />
-  <b>DOW:</b> <?= $dow ?> <br />
-  <b>Year:</b> <?= $year ?> <br />
-  <b>Location:</b> <a href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($event_content["event_location"]) ?>" target="_blank"><?= $event_content["event_location"] ?></a>
-</p>
+<div class="row">
+  <div class="col-md-4 col-xs-12">
+    <p>
+      <b>Date:</b> <?= $date ?> <br />
+      <b>Start time:</b> <?= $time ?> <br />
+    </p>
+  </div>
+  <div class="col-md-4 col-xs-12">
+    <p>
+      <b>DOW:</b> <?= $dow ?> <br />
+      <b>Year:</b> <?= $year ?> <br />
+    </p>
+  </div>
+  <div class="col-md-4 col-xs-12">
+    <p>
+      <i class="fas fa-map-marker-alt fa-sm"></i> <a href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($event_content["event_location"]) ?>" target="_blank"><?= $event_content["event_location"] ?></a>
+    </p>
+  </div>
+</div>
 
 <p>
   <b>Description:</b> <br />

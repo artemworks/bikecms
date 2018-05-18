@@ -32,24 +32,24 @@ $sql[] = "CREATE TABLE b_categories (
 $sql[] = "INSERT INTO b_categories (cat_title, is_active)
 				 			VALUES ('Food and Groceries', 1),
 				 			       ('Transportation', 1),
-				 				   ('Clothing', 1),
-				 				   ('Utilities', 1),
-				 				   ('Personal Care', 1),
-				 				   ('Health Care', 1),
-				 				   ('Insurance', 1),
-				 				   ('Banking', 1),
-				 				   ('Medical', 1),
-				 				   ('Housing', 1),
-				 				   ('Entertainment', 1),
-				 				   ('Gifts', 1),
-				 				   ('Unexpected', 1)";
+				 				   	('Clothing', 1),
+				 				   	('Utilities', 1),
+				 				   	('Personal Care', 1),
+				 				   	('Health Care', 1),
+				 				   	('Insurance', 1),
+				 				   	('Banking', 1),
+				 				   	('Medical', 1),
+				 				   	('Housing', 1),
+				 				   	('Entertainment', 1),
+				 				   	('Gifts', 1),
+				 				   	('Unexpected', 1)";
 
 /*
 		We need to add Calendar to the list of available sections
 */
 
 $sql[] = "INSERT INTO section (name, page, title, description, rank, is_active)
-		  VALUES ('budget', 'budget', 'Budget', 'List of expenses', 4, 1)";
+		  VALUES ('budget', 'budget', 'Budget', 'List of expenses', 5, 1)";
 
 
 

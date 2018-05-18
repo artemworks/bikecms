@@ -14,6 +14,9 @@ $article_content = $article->getArticleByUrl(htmlentities(ltrim($action, '/')));
 require_once "./include/utilities.php";
 $utility = new Utility($db);
 
+require_once "./models/user.php";
+$user = new User($db);
+
 
 if ($article_content)
 {
