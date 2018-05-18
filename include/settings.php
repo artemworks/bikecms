@@ -17,4 +17,5 @@ define("CMS_TITLE", "BikeCMS");
 
 define("NUM_HOMEPAGE", 6);
 
+
 ?>

@@ -4,13 +4,13 @@ class Utility
 {
 
 	private $connection;
-	
+
 	function __construct($db)
 	{
 		$this->connection = $db;
 	}
 
-	public function redirect_to($new_location) 
+	public function redirect_to($new_location)
 	{
 		header("Location: " . $new_location);
 		exit;
@@ -42,7 +42,7 @@ class Utility
 		}
 	}
 
-	public function logOut() 
+	public function logOut()
 	{
 		session_destroy();
 		header('Location: ./');

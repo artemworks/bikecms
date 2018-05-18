@@ -1,6 +1,6 @@
 <?php
 
-class Purchase 
+class Purchase
 {
 
 	private $connection;
@@ -13,7 +13,7 @@ class Purchase
 	public $tax;
 	public $cat_id;
 	public $is_active;
-	
+
 	public function __construct($db)
 	{
 		$this->connection = $db;
@@ -21,7 +21,7 @@ class Purchase
 
 	public function readAll()
 	{
-		$query = "SELECT * FROM " . $this->db_table . 
+		$query = "SELECT * FROM " . $this->db_table .
 				 " ORDER BY trans_id DESC";
 		$stmt = $this->connection->prepare($query);
 		$stmt->execute();
@@ -38,7 +38,7 @@ class Purchase
 		return $row["{$column}"];
 	}
 
-	public function getTransById($trans_id) 
+	public function getTransById($trans_id)
 	{
 		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE trans_id = :tid LIMIT 1");
 		$stmt->execute(array(':tid' => $trans_id));
@@ -46,12 +46,12 @@ class Purchase
 		return $result;
 	}
 
-	public function getCatById($trans_id) 
+	public function getCatById($trans_id)
 	{
-		$stmt = $this->connection->prepare("SELECT * 
-			FROM " . $this->db_table . " 
-			LEFT JOIN b_categories 
-			ON b_transactions.cat_id=b_categories.cat_id  
+		$stmt = $this->connection->prepare("SELECT *
+			FROM " . $this->db_table . "
+			LEFT JOIN b_categories
+			ON b_transactions.cat_id=b_categories.cat_id
 			WHERE trans_id = :tid");
 		$stmt->execute(array(':tid' => $trans_id));
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -59,8 +59,8 @@ class Purchase
 	}
 
 	public function addTransaction($trans_date, $store, $amount, $tax, $cat_id, $is_active){
-  		
-        $stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (trans_date, store, amount, tax, cat_id, is_active) 
+
+        $stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (trans_date, store, amount, tax, cat_id, is_active)
                                 VALUES (:tdt, :str, :amt, :tax, :cid, :isa)");
 
         $stmt->execute(array(
@@ -78,14 +78,14 @@ class Purchase
 	}
 
 	public function delTransaction($trans_id){
-  		
+
   		$stmt = $this->connection->prepare("DELETE FROM " . $this->db_table . " WHERE trans_id = :tid");
 
 		if( $stmt->execute(array( ':tid' => $trans_id )) )
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -93,22 +93,149 @@ class Purchase
 	public function updateTransaction($trans_date, $store, $amount, $tax, $cat_id, $is_active, $trans_id)
 	{
 
-        $stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET 
-                         trans_date = :tdt, 
-                         store = :str, 
-                         amount = :amt, 
-                         tax = :tax, 
-                         cat_id = :cid, 
-                         is_active = :isa 
-                               WHERE trans_id = :tid");
-  		
+        $stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET
+                         trans_date = :tdt,
+                         store = :str,
+                         amount = :amt,
+                         tax = :tax,
+                         cat_id = :cid,
+                         is_active = :isa
+                         WHERE trans_id = :tid");
+
 		if( $stmt->execute(array(':tdt' => $trans_date, ':str' => $store, ':amt' => $amount, ':tax' => $tax, ':cid' => $cat_id, ':isa' => $is_active, ':tid' => $trans_id)) )
 		{
 			return true;
-		}	
+		}
 		return false;
 	}
 
-}
 
+/*
+  API Functions
+*/
+
+
+
+public function readByPage($from_record_num, $records_per_page){
+
+    $query = "SELECT *
+          FROM " . $this->db_table . "
+          ORDER BY trans_date DESC
+                  LIMIT ?, ?";
+
+      $stmt = $this->connection->prepare($query);
+
+      $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
+      $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
+
+      $stmt->execute();
+
+      return $stmt;
+  }
+
+  public function count()
+  {
+      $query = "SELECT COUNT(*) as total_rows FROM " . $this->db_table . "";
+
+      $stmt = $this->connection->prepare($query);
+      $stmt->execute();
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      return $row['total_rows'];
+  }
+
+/*
+
+  public function create()
+  {
+    $query = "INSERT INTO " . $this->table_name . "
+          SET
+          trans_date=:tdt, store=:str, amount=:amt, tax=:tax, cat_id=:cid, is_active=:isa
+          ";
+
+    $stmt = $this->connection->prepare($query);
+
+    $this->trans_date=htmlspecialchars(strip_tags($this->trans_date));
+    $this->store=htmlspecialchars(strip_tags($this->store));
+    $this->amount=htmlspecialchars(strip_tags($this->amount));
+    $this->tax=htmlspecialchars(strip_tags($this->tax));
+    $this->cat_id=htmlspecialchars(strip_tags($this->cat_id));
+    $this->is_active=htmlspecialchars(strip_tags($this->is_active));
+
+    $stmt->bindParam(":tdt", $this->trans_date);
+    $stmt->bindParam(":str", $this->store);
+    $stmt->bindParam(":amt", $this->amount);
+    $stmt->bindParam(":tax", $this->tax);
+    $stmt->bindParam(":cid", $this->cat_id);
+    $stmt->bindParam(":isa", $this->is_active);
+
+    if( $stmt->execute() )
+    {
+      return true;
+    }
+
+    return false;
+
+  }
+
+  public function update()
+  {
+    $query = "UPDATE " . $this->table_name . "
+          SET
+          trans_date=:tdt, store=:str, amount=:amt, tax=:tax, cat_id=:cid, is_active=:isa
+          WHERE
+          trans_id = :tid";
+
+    $stmt = $this->connection->prepare($query);
+
+    $this->trans_id=htmlspecialchars(strip_tags($this->trans_id));
+    $this->trans_date=htmlspecialchars(strip_tags($this->trans_date));
+    $this->store=htmlspecialchars(strip_tags($this->store));
+    $this->amount=htmlspecialchars(strip_tags($this->amount));
+    $this->tax=htmlspecialchars(strip_tags($this->tax));
+    $this->cat_id=htmlspecialchars(strip_tags($this->cat_id));
+    $this->is_active=htmlspecialchars(strip_tags($this->is_active));
+
+    $stmt->bindParam(":tid", $this->trans_id);
+    $stmt->bindParam(":tdt", $this->trans_date);
+    $stmt->bindParam(":str", $this->store);
+    $stmt->bindParam(":amt", $this->amount);
+    $stmt->bindParam(":tax", $this->tax);
+    $stmt->bindParam(":cid", $this->cat_id);
+    $stmt->bindParam(":isa", $this->is_active);
+
+    if( $stmt->execute() )
+    {
+      return true;
+    }
+
+    return false;
+
+  }
+
+  public function delete()
+  {
+    $query = "DELETE FROM " . $this->table_name . " WHERE trans_id = ?";
+
+    $stmt = $this->connection->prepare($query);
+
+    $this->trans_id = htmlspecialchars(strip_tags($this->trans_id));
+
+    $stmt->bindParam(1, $this->trans_id);
+
+    if( $stmt->execute() )
+    {
+      return true;
+    }
+
+    return false;
+
+  }
+
+
+
+*/
+
+
+}
 ?>

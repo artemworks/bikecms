@@ -7,9 +7,9 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../../config/settings.php';
-include_once '../../shared/utilities.php';
-include_once '../../config/db.php';
-include_once '../../objects/article.php';
+include_once '../../config/utilities.php';
+include_once '../../../models/db.php';
+include_once '../../../models/article.php';
 
 $utilities = new Utilities();
 
@@ -28,7 +28,7 @@ if ( $num>0 )
 	$p_array["articles"] = array();
 
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-		
+
 		extract($row);
 
 		$article = array(
@@ -48,14 +48,14 @@ if ( $num>0 )
 		$p_array["articles"][] = $article;
 	}
 
-	$page_url = $home_url . "article/read.php?";
+	$page_url = $home_url . "article/?";
 	$paging = $utilities->getPages($page, $total_rows, $obj_per_page, $page_url);
 	$p_array["paging"] = $paging;
 
 	echo json_encode($p_array);
 
 }
-else 
+else
 {
 	echo json_encode(
         array("message" => "No transactions or articles found")
