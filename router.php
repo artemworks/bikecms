@@ -38,17 +38,38 @@ switch ($controller) {
 		require_once "./controllers/search.php";
 		break;
 
-	case 'budget':	
-		require_once "./controllers/budget.php";
+/*
+		Modules
+*/
+
+	case 'calendar':
+		if ( ! $action || $action == "/" ) {
+			require_once "./controllers/module_calendar.php";
+		} else if ( $action ) {
+			require_once "./controllers/module_calendar_item.php";
+		}
 		break;
 
-	case '404':	
+	case 'budget':
+		require_once "./controllers/module_budget.php";
+		break;
+
+/*
+	404 page
+*/
+
+	case '404':
 		require_once "./controllers/notfound.php";
 		break;
+
+/*
+	Default
+*/
 
 	default:
 		require_once "./controllers/default.php";
 		break;
+
 }
 
 ?>

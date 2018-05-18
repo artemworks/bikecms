@@ -1,4 +1,4 @@
-      <div class="row"> 
+      <div class="row">
 
         <div class="col-md-3">
           <p class="text-center lead"><b>Articles</b></p>
@@ -6,7 +6,7 @@
           <p class="text-center">
             <a class="btn btn-secondary" href="article/add" aria-label="Settings">
               <i class="fa fa-plus" aria-hidden="true"></i>
-            </a> 
+            </a>
             <a class="btn btn-secondary" href="article" aria-label="Settings">
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>
@@ -19,7 +19,7 @@
           <p class="text-center">
             <a class="btn btn-secondary" href="tag/add" aria-label="Settings">
               <i class="fa fa-plus" aria-hidden="true"></i>
-            </a> 
+            </a>
             <a class="btn btn-secondary" href="tag" aria-label="Settings">
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>
@@ -32,7 +32,7 @@
           <p class="text-center">
             <a class="btn btn-secondary" href="section/add" aria-label="Settings">
               <i class="fa fa-plus" aria-hidden="true"></i>
-            </a> 
+            </a>
             <a class="btn btn-secondary" href="section" aria-label="Settings">
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>
@@ -45,7 +45,7 @@
           <p class="text-center">
             <a class="btn btn-secondary" href="user/add" aria-label="Settings">
               <i class="fa fa-plus" aria-hidden="true"></i>
-            </a> 
+            </a>
             <a class="btn btn-secondary" href="user" aria-label="Settings">
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>
@@ -57,13 +57,26 @@
       <div class="app-row row">
 
         <div class="col-md-3">
-          <p class="text-center lead"><b>Budget App</b></p>
+          <p class="text-center lead"><b>Budget</b> <small><span class="badge badge-pill badge-info">Module</span></small></p>
           <h1 class="display-4 text-center"><?= count($purchases) ?></h1>
           <p class="text-center">
-            <a class="btn btn-secondary" href="budget_app/add" aria-label="Settings">
+            <a class="btn btn-secondary" href="module_budget/add" aria-label="Settings">
               <i class="fa fa-plus" aria-hidden="true"></i>
-            </a> 
-            <a class="btn btn-secondary" href="budget_app" aria-label="Settings">
+            </a>
+            <a class="btn btn-secondary" href="module_budget" aria-label="Settings">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+          </p>
+        </div>
+
+        <div class="col-md-3">
+          <p class="text-center lead"><b>Calendar</b> <small><span class="badge badge-pill badge-info">Module</span></small></p>
+          <h1 class="display-4 text-center"><?= count($events) ?></h1>
+          <p class="text-center">
+            <a class="btn btn-secondary" href="module_calendar/add" aria-label="Settings">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-secondary" href="module_calendar" aria-label="Settings">
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>
           </p>

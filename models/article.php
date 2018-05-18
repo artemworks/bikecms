@@ -161,7 +161,7 @@ class Article
                          user_id = :uid,
                          is_active = :isa,
                          views = :vw
-                         	WHERE article_id = :aid");
+                         	    WHERE article_id = :aid");
 
     	if( $stmt->execute(array(
     				  ':pos' => $posted,

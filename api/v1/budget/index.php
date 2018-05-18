@@ -9,7 +9,7 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../../config/settings.php';
 include_once '../../config/utilities.php';
 include_once '../../../models/db.php';
-include_once '../../../models/purchase.php';
+include_once '../../../models/module_purchase.php';
 
 $utilities = new Utilities();
 

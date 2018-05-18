@@ -7,7 +7,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 include_once '../../config/db.php';
-include_once '../../objects/purchase.php';
+include_once '../../objects/module_purchase.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -17,30 +17,29 @@ $purchase = new Purchase($db);
 // get data from a post request
 $data = json_decode(file_get_contents("php://input"));
 
-if ( !empty($data) && isset( $data->trans_id ) )
+if ( !empty($data) )
 {
 
-	$purchase->trans_id = $data->trans_id;
-	$purchase->trans_date = $data->trans_date;
-	$purchase->store = $data->store;
-	$purchase->amount = $data->amount;
-	$purchase->tax = $data->tax;
-	$purchase->cat_id = $data->cat_id;
-	$purchase->is_active = $data->is_active;
+	$purchase->trans_date;
+	$purchase->store;
+	$purchase->amount;
+	$purchase->tax;
+	$purchase->cat_id;
+	$purchase->is_active;
 
-	if( $purchase->update() )
+	if( $purchase->create() )
 	{
-	    echo '{' . '"message": "Transaction or purchase was updated"' . '}';
+	    echo '{' . '"message": "Transaction or purchase was created"' . '}';
 	}
 	else
 	{
-		echo '{' . '"message": "Unable to update transaction"' . '}';
+		echo '{' . '"message": "Unable to create transaction"' . '}';
 	}
 
 }
 else
 {
-	echo '{' . '"message": "Empty inquiry or transaction ID isn\'t set, please send some data"' . '}';
+	echo '{' . '"message": "Empty inquiry, please send some data"' . '}';
 }
 */
 ?>

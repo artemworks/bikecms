@@ -18,7 +18,7 @@
   </tr>
 
 
-  <?php 
+  <?php
 
     foreach ($transactions as $transaction) {
 
@@ -27,13 +27,13 @@
 
       $transaction["is_active"] ? $status = "Active" : $status = "Not Active";
 
-  ?>    
+  ?>
 
   <tr>
 
     <td><input class="form-check-input" name="trans_id" type="checkbox" value="<?= htmlentities($transaction["trans_id"]) ?>"></td>
     <td><?= htmlentities($transaction["trans_id"]) ?></td>
-    <td><a href="<?= DIR_URL . "cms/budget_app/edit/" . htmlentities($transaction["trans_id"]) ?>"><?= $transDate ?></a></td>
+    <td><a href="<?= DIR_URL . "cms/module_budget/edit/" . htmlentities($transaction["trans_id"]) ?>"><?= $transDate ?></a></td>
     <td><?= htmlentities($transaction["store"]) ?></td>
     <td><?= htmlentities($transaction["amount"]) ?></td>
     <td><?= htmlentities($transaction["tax"]) ?></td>
@@ -45,7 +45,7 @@
   <?php } ?>
 
   </table>
-  
+
   <button type="submit" class="btn btn-outline-danger" name="delete">Delete</button>&nbsp;
   <button type="submit" class="btn btn-outline-secondary" name="cancel">Cancel</button>
 

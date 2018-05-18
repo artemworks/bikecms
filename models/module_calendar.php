@@ -9,6 +9,7 @@ class Calendar
 	public $event_id;
 	public $event_datetime;
 	public $event_title;
+  public $event_title_url;
 	public $event_description;
 	public $event_location;
   public $event_link;
@@ -24,12 +25,21 @@ class Calendar
 	public function readAll()
 	{
 		$query = "SELECT * FROM " . $this->db_table .
-				 " ORDER BY event_id DESC";
+				 " ORDER BY event_id ASC";
 		$stmt = $this->connection->prepare($query);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $result;
 	}
+
+  public function readAllSortedByDate()
+  {
+    $query = "SELECT * FROM " . $this->db_table . " ORDER BY event_datetime DESC";
+    $stmt = $this->connection->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
 
   public function readByPage($from_record_num, $records_per_page){
 
@@ -76,6 +86,15 @@ class Calendar
 		return $result;
 	}
 
+  public function getEventByUrl($event_title_url)
+  {
+
+    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE event_title_url = :etu LIMIT 1");
+    $stmt->execute(array(':etu' => $event_title_url));
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
 	public function getCatById($event_id)
 	{
 		$stmt = $this->connection->prepare("SELECT *
@@ -105,14 +124,15 @@ class Calendar
     return $result;
   }
 
-	public function addEvent($event_datetime, $event_title, $event_description, $event_location, $event_link, $cat_id, $is_active, $pageviews){
+	public function addEvent($event_datetime, $event_title, $event_title_url, $event_description, $event_location, $event_link, $cat_id, $is_active, $pageviews){
 
-        $stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (trans_date, store, amount, tax, cat_id, is_active, pageviews)
-                                VALUES (:edt, :ett, :eds, :eloc, :eli, :cid, :isa, :pgv)");
+        $stmt = $this->connection->prepare("INSERT INTO " . $this->db_table . " (event_datetime, event_title, event_title_url, event_description, event_location, event_link, cat_id, is_active, pageviews)
+                  VALUES (:edt, :ett, :etu, :eds, :eloc, :eli, :cid, :isa, :pgv)");
 
         $stmt->execute(array(
                       ':edt' => $event_datetime,
                       ':ett' => $event_title,
+                      ':etu' => $event_title_url,
                       ':eds' => $event_description,
                       ':eloc' => $event_location,
                       ':eli' => $event_link,
@@ -139,21 +159,32 @@ class Calendar
 	}
 
 
-	public function updateEvent($event_datetime, $event_title, $event_description, $event_location, $event_link, $cat_id, $is_active, $pageviews)
+	public function updateEvent($event_datetime, $event_title, $event_title_url, $event_description, $event_location, $event_link, $cat_id, $is_active, $pageviews, $event_id)
 	{
 
         $stmt = $this->connection->prepare("UPDATE " . $this->db_table . " SET
                          event_datetime = :edt,
                          event_title = :ett,
+                         event_title_url = :etu,
                          event_description = :eds,
                          event_location = :elo,
                          event_link = :eli,
                          cat_id = :cid,
                          is_active = :isa,
                          pageviews = :pgv
-                         WHERE event_id = :eid");
+                            WHERE event_id = :eid");
 
-		if( $stmt->execute(array(':edt' => $event_datetime, ':ett' => $event_title, ':eds' => $event_description, ':elo' => $event_location, 'eli' => $event_link, ':cid' => $cat_id, ':isa' => $is_active, ':eid' => $event_id, ':pgv' => $pageviews)) )
+		if( $stmt->execute(array(
+                                ':edt' => $event_datetime,
+                                ':ett' => $event_title,
+                                ':etu' => $event_title_url,
+                                ':eds' => $event_description,
+                                ':elo' => $event_location,
+                                'eli' => $event_link,
+                                ':cid' => $cat_id,
+                                ':isa' => $is_active,
+                                ':pgv' => $pageviews,
+                                ':eid' => $event_id)) )
 		{
 			return true;
 		}

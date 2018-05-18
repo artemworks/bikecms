@@ -9,7 +9,7 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../../config/settings.php';
 include_once '../../config/utilities.php';
 include_once '../../../models/db.php';
-include_once '../../../models/calendar.php';
+include_once '../../../models/module_calendar.php';
 
 $utilities = new Utilities();
 
@@ -34,6 +34,8 @@ if ( $num>0 )
 		$calendar = array(
 			"event_id" => $event_id,
 			"event_datetime" => $event_datetime,
+			"event_title" => $event_title,
+			"event_title_url" => $event_title_url,
 			"event_description" => $event_description,
 			"event_location" => $event_location,
 			"event_link" => $event_link,

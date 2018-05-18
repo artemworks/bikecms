@@ -14,25 +14,25 @@ isset($arrayOfActions[1]) && is_numeric($arrayOfActions[1]) ? $action_id = $arra
 switch ($controller) {
 
   case 'homepage':
-		
+
     require_once "./controllers/homepage.php";
     break;
 
 	case 'article':
 
-    if ( $action === "/" || $action === "") 
+    if ( $action === "/" || $action === "")
     {
       require_once "./controllers/article/view.php";
     }
-    if ( $action === "add" ) 
+    if ( $action === "add" )
     {
       require_once "./controllers/article/add.php";
     }
-    if ( $action === "edit" && !empty($action_id) ) 
+    if ( $action === "edit" && !empty($action_id) )
     {
       require_once "./controllers/article/edit.php";
     }
-    if ( $action === "delete" && !empty($action_id) ) 
+    if ( $action === "delete" && !empty($action_id) )
     {
       require_once "./controllers/article/delete.php";
     }
@@ -41,19 +41,19 @@ switch ($controller) {
 
   case 'tag':
 
-    if ( $action === "/" || $action === "") 
+    if ( $action === "/" || $action === "")
     {
       require_once "./controllers/tag/view.php";
     }
-    if ( $action === "add" ) 
+    if ( $action === "add" )
     {
       require_once "./controllers/tag/add.php";
     }
-    if ( $action === "edit" && !empty($action_id) ) 
+    if ( $action === "edit" && !empty($action_id) )
     {
       require_once "./controllers/tag/edit.php";
     }
-    if ( $action === "delete" && !empty($action_id) ) 
+    if ( $action === "delete" && !empty($action_id) )
     {
       require_once "./controllers/tag/delete.php";
     }
@@ -61,65 +61,97 @@ switch ($controller) {
 
   case 'section':
 
-    if ( $action === "/" || $action === "") 
+    if ( $action === "/" || $action === "")
     {
       require_once "./controllers/section/view.php";
     }
-    if ( $action === "add" ) 
+    if ( $action === "add" )
     {
       require_once "./controllers/section/add.php";
     }
-    if ( $action === "edit" && !empty($action_id) ) 
+    if ( $action === "edit" && !empty($action_id) )
     {
       require_once "./controllers/section/edit.php";
     }
-    if ( $action === "delete" && !empty($action_id) ) 
+    if ( $action === "delete" && !empty($action_id) )
     {
       require_once "./controllers/section/delete.php";
     }
     break;
 
   case 'user':
-    if ( $action === "/" || $action === "") 
+    if ( $action === "/" || $action === "")
     {
       require_once "./controllers/user/view.php";
     }
-    if ( $action === "add" ) 
+    if ( $action === "add" )
     {
       require_once "./controllers/user/add.php";
     }
-    if ( $action === "edit" && !empty($action_id) ) 
+    if ( $action === "edit" && !empty($action_id) )
     {
       require_once "./controllers/user/edit.php";
     }
-    if ( $action === "delete" && !empty($action_id) ) 
+    if ( $action === "delete" && !empty($action_id) )
     {
       require_once "./controllers/user/delete.php";
     }
     break;
 
-  case 'budget_app':
-    if ( $action === "/" || $action === "") 
+/*
+    External Modules
+*/
+
+  case 'module_budget':
+    if ( $action === "/" || $action === "")
     {
-      require_once "./controllers/budget_app/view.php";
+      require_once "./controllers/module_budget/view.php";
     }
-    if ( $action === "add" ) 
+    if ( $action === "add" )
     {
-      require_once "./controllers/budget_app/add.php";
+      require_once "./controllers/module_budget/add.php";
     }
-    if ( $action === "edit" && !empty($action_id) ) 
+    if ( $action === "edit" && !empty($action_id) )
     {
-      require_once "./controllers/budget_app/edit.php";
+      require_once "./controllers/module_budget/edit.php";
     }
-    if ( $action === "delete" && !empty($action_id) ) 
+    if ( $action === "delete" && !empty($action_id) )
     {
-      require_once "./controllers/budget_app/delete.php";
+      require_once "./controllers/module_budget/delete.php";
     }
     break;
 
-	case '404':	
+
+  case 'module_calendar':
+    if ( $action === "/" || $action === "")
+    {
+      require_once "./controllers/module_calendar/view.php";
+    }
+    if ( $action === "add" )
+    {
+      require_once "./controllers/module_calendar/add.php";
+    }
+    if ( $action === "edit" && !empty($action_id) )
+    {
+      require_once "./controllers/module_calendar/edit.php";
+    }
+    if ( $action === "delete" && !empty($action_id) )
+    {
+      require_once "./controllers/module_calendar/delete.php";
+    }
+    break;
+
+/*
+    404
+*/
+
+	case '404':
     require_once "./controllers/notfound.php";
     break;
+
+/*
+    Default
+*/
 
   default:
     require_once "./controllers/default.php";

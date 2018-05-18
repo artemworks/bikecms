@@ -44,6 +44,15 @@ $sql[] = "INSERT INTO b_categories (cat_title, is_active)
 				 				   ('Gifts', 1),
 				 				   ('Unexpected', 1)";
 
+/*
+		We need to add Calendar to the list of available sections
+*/
+
+$sql[] = "INSERT INTO section (name, page, title, description, rank, is_active)
+		  VALUES ('budget', 'budget', 'Budget', 'List of expenses', 4, 1)";
+
+
+
 $_SESSION['success_count'] = 0;
 $_SESSION['error_count'] = 0;
 

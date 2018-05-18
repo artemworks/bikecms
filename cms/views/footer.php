@@ -18,7 +18,7 @@
     <script src="<?= DIR_URL ?>cms/vendors/summernote/summernote-bs4.js"></script>
 
     <script type="text/javascript">
-        
+
         function readCover(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -43,15 +43,18 @@
             $('#summernote').summernote('code', '<?= addslashes($articleContent["body"]) ?>');
         });
     <?php } ?>
-    
+    <?php if ( isset($eventContent["event_description"]) ) { ?>
+        $(document).ready(function() {
+            $('#summernote').summernote('code', '<?= addslashes($eventContent["event_description"]) ?>');
+        });
+    <?php } ?>
         var postForm = function() {
             var content = $('textarea[name="content"]').html($('#summernote').code());
         }
     </script>
 
+    <?php if ( isset($tag) ) { ?>
     <script>
-      
-      
       <?php
         if ( isset($numTag) ) {
             echo "countTag = " . ($numTag-1) . ";";
@@ -95,6 +98,7 @@
         });
       });
     </script>
+    <?php } ?>
 
   </body>
 </html>
