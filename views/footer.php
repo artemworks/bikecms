@@ -5,8 +5,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>&copy 2017-<?= date('y') ?> 
-                    <a href="<?= GIT_URL ?>"><?= CMS_TITLE ?></a></p>
+                    <p>&copy 2017-<?= date('y') ?>
+                    <a href="<?= GIT_URL ?>">BikeCMS</a></p>
                 </div>
             </div>
         </div>

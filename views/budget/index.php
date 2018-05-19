@@ -26,7 +26,7 @@
 		if ( $transaction["is_active"] )
 		{
 			echo "<tr><td>" .
-				DateTime::createFromFormat('Y-m-d H:i:s', $transaction["trans_date"])->format('M, d Y') .
+				DateTime::createFromFormat('Y-m-d H:i:s', $transaction["trans_date"])->format('M d, Y') .
 				"</td><td>" .
 				$transaction["store"] .
 				"</td><td>" .

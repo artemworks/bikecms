@@ -12,21 +12,23 @@
             <label for="title">Title URL</label>
             <input type="text" name="event_title_url" class="form-control" value="<?= $eventContent["event_title_url"] ?>">
 
-            <label for="title">Location</label>
-            <input type="text" name="event_location" class="form-control" value="<?= $eventContent["event_location"] ?>">
+            <label for="posted">Date</label>
+            <input type="text" class="form-control" name="event_datetime" value="<?= $eventContent["event_datetime"] ?>">
 
             <label for="body">Description</label>
             <textarea id="summernote" class="form-control" type="text" name="event_description" rows="10"></textarea>
 
-            <label for="title">Event Link</label>
-            <input type="text" name="event_link" class="form-control" value="<?= $eventContent["event_link"] ?>">
+
 
     </div>
 
     <div class="form-group col-md-2">
 
-            <label for="posted">Date</label>
-            <input type="text" class="form-control" name="event_datetime" value="<?= $eventContent["event_datetime"] ?>">
+            <label for="title">Event Link</label>
+            <input type="text" name="event_link" class="form-control" value="<?= $eventContent["event_link"] ?>">
+
+            <label for="title">Location</label>
+            <input type="text" name="event_location" class="form-control" value="<?= $eventContent["event_location"] ?>">
 
             <label for="views">Views</label>
             <input type="text" class="form-control" name="pageviews" value="<?= $eventContent["pageviews"] ?>">

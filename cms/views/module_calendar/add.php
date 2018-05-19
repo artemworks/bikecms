@@ -9,23 +9,24 @@
             <label for="title">Title</label>
             <input type="text" name="event_title" class="form-control" Placeholder="Very good event">
 
-            <label for="title">Title URL (plus year)</label>
+            <label for="titleUrl">Title URL (plus year)</label>
             <input type="text" name="event_title_url" class="form-control" Placeholder="very-good-event-2018">
 
-            <label for="title">Location</label>
-            <input type="text" name="event_location" class="form-control" Placeholder="Location">
+            <label for="datePosted">Start Date</label>
+            <input type="text" class="form-control" name="event_datetime" Placeholder="YYYY-MM-DD HH:MM:SS">
 
             <label for="body">Description</label>
             <textarea id="summernote" class="form-control" type="text" name="event_description" rows="7" Placeholder="Just wanted to write a short description of the event"></textarea>
 
-            <label for="title">Link to the event</label>
-            <input type="text" name="event_link" class="form-control" Placeholder="Just copy the whole url here">
     </div>
 
     <div class="form-group col-md-2">
 
-            <label for="datePosted">Date posted</label>
-            <input type="date" class="form-control" name="event_datetime">
+            <label for="link">Link to the event</label>
+            <input type="text" name="event_link" class="form-control" Placeholder="Copy URL here">
+
+            <label for="location">Location</label>
+            <input type="text" name="event_location" class="form-control" Placeholder="Location">
 
             <label for="catId">Cat_id</label>
             <input type="text" class="form-control" name="cat_id">

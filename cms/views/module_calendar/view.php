@@ -20,7 +20,7 @@
 
     foreach ($events as $event) {
 
-      $date = DateTime::createFromFormat('Y-m-d H:i:s', $event["event_datetime"])->format('M, d Y');
+      $date = DateTime::createFromFormat('Y-m-d H:i:s', $event["event_datetime"])->format('M d, Y');
 
       $event["is_active"] ? $status = "Active" : $status = "Not Active";
 

@@ -8,7 +8,7 @@ if( isset($name) ) {
 
 foreach ($events as $event) {
 	if ( $event["is_active"] ) {
-		$date = DateTime::createFromFormat('Y-m-d H:i:s', $event["event_datetime"])->format('M, d Y');
+		$date = DateTime::createFromFormat('Y-m-d H:i:s', $event["event_datetime"])->format('M d, Y');
 ?>
 
 <p>

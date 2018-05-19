@@ -36,11 +36,11 @@
 	    </form>
 	  </div>
 
-	</div>  
+	</div>
 	</nav>
 
 	<br>
-	
+
   	<div class="container">
   		<div class="row">
 			<div class="card-deck">
@@ -50,10 +50,10 @@
 				foreach ($lastArticles as $art) {
 					if ( $art["is_active"] ) {
 						$number++;
-						$date = DateTime::createFromFormat('Y-m-d H:i:s', $art["posted"])->format('M, n');
+						$date = DateTime::createFromFormat('Y-m-d H:i:s', $art["posted"])->format('M d, Y');
 
 						echo '
-							 
+
 							  <div class="card">
 							    <div class="card-crop"><img class="card-img-top" src="' . DIR_URL_IMG . $art["cover"] . '" alt="' . $art["title"] . '"></div>
 							    <div class="card-body">
@@ -64,7 +64,7 @@
 							      <small class="text-muted">' . $date . '</small>
 							    </div>
 							  </div>
-							 
+
 								';
 						}
 

@@ -2,7 +2,7 @@
 /*
   Check format characters here: http://php.net/manual/en/datetime.createfromformat.php
 */
-  $date = DateTime::createFromFormat('Y-m-d H:i:s', $event_content["event_datetime"])->format('M, d');
+  $date = DateTime::createFromFormat('Y-m-d H:i:s', $event_content["event_datetime"])->format('M d');
   $year = DateTime::createFromFormat('Y-m-d H:i:s', $event_content["event_datetime"])->format('Y');
   $time = DateTime::createFromFormat('Y-m-d H:i:s', $event_content["event_datetime"])->format('g:i a');
   $dow = DateTime::createFromFormat('Y-m-d H:i:s', $event_content["event_datetime"])->format('l');
@@ -33,7 +33,9 @@
   </div>
   <div class="col-md-4 col-xs-12">
     <p>
-      <i class="fas fa-map-marker-alt fa-sm"></i> <a href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($event_content["event_location"]) ?>" target="_blank"><?= $event_content["event_location"] ?></a>
+      <i class="fas fa-map-marker-alt fa-sm"></i> <a href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($event_content["event_location"]) ?>" target="_blank"><?= $event_content["event_location"] ?></a> <br />
+        <i class="fas fa-eye fa-sm"></i>
+        <?= $event_content["pageviews"] ?>
     </p>
   </div>
 </div>
@@ -45,11 +47,4 @@
 
 <p>
   More information <a href="<?= $event_content["event_link"] ?>" target="_blank">here</a>.
-</p>
-
-<p>
-  <small>
-    <i class="fas fa-eye fa-sm"></i>
-    <?= $event_content["pageviews"] ?>
-  </small>
 </p>
