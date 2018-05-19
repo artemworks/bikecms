@@ -2,7 +2,7 @@
 
 require_once DIR . "models/module_purchase.php";
 $purchase = new Purchase($db);
-$transactions = $purchase->readAll();
+$transactions = $purchase->readSortedByDate();
 
 if ( isset($_POST['cancel']) ) {
   $_SESSION['success'] = "Cancelled";

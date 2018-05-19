@@ -30,6 +30,16 @@ class Purchase
 		return $result;
 	}
 
+  public function readSortedByDate()
+  {
+    $query = "SELECT * FROM " . $this->db_table .
+         " ORDER BY trans_date DESC";
+    $stmt = $this->connection->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
 	public function sumAll($column)
 	{
 		$query = "SELECT SUM(" . $column . ") as " . $column . " FROM " . $this->db_table;

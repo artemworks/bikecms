@@ -6,7 +6,7 @@ $sections = $section->readAll();
 
 require_once "./models/module_purchase.php";
 $purchase = new Purchase($db);
-$transactions = $purchase->readAll();
+$transactions = $purchase->readSortedByDate();
 $sum_amount = $purchase->sumAll("amount");
 $sum_tax = $purchase->sumAll("tax");
 

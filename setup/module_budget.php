@@ -42,6 +42,7 @@ $sql[] = "INSERT INTO b_categories (cat_title, is_active)
 				 				   	('Housing', 1),
 				 				   	('Entertainment', 1),
 				 				   	('Gifts', 1),
+				 				   	('Child Care', 1),
 				 				   	('Unexpected', 1)";
 
 /*

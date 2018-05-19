@@ -27,7 +27,7 @@ $transaction = $purchase->getTransById($action_id);
     <div class="form-group col-md-2">
 
             <label for="datePosted">DateTime</label>
-            <input type="date" class="form-control" name="trans_date" value="<?= $transaction["trans_date"] ?>">
+            <input type="text" class="form-control" name="trans_date" value="<?= $transaction["trans_date"] ?>">
 
             <label for="dateArchived">Category</label>
             <select class="form-control" name="cat_id">

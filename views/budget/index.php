@@ -33,9 +33,13 @@
 				$transaction["amount"] .
 				"</td><td>" .
 				$transaction["tax"] .
-				"</td><td><a href='" .
-				$transaction["dropbox_url"] .
-				"' target='_blank'><i class='far fa-file-alt fa-sm'></i></a></td></tr>";
+				"</td>";
+				if($transaction["dropbox_url"] !== ""){
+								echo "<td><a href='" . $transaction["dropbox_url"] . "' target='_blank'><i class='far fa-file-alt fa-sm'></i></a></td>";
+						} else {
+							echo "<td style='color:Grey'><i class='fas fa-times'></i></td>";
+						}
+				echo "</tr>";
 		}
 	}
 ?>
