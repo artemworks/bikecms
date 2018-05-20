@@ -47,7 +47,7 @@ if ( $num>0 )
 		$p_array["events"][] = $calendar;
 	}
 
-	$page_url = $home_url . "calendar/index.php?";
+	$page_url = $home_url . "calendar/?";
 	$paging = $utilities->getPages($page, $total_rows, $obj_per_page, $page_url);
 	$p_array["paging"] = $paging;
 

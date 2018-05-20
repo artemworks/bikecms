@@ -10,6 +10,7 @@ include_once '../../config/settings.php';
 include_once '../../config/utilities.php';
 include_once '../../../models/db.php';
 include_once '../../../models/module_purchase.php';
+include_once '../../../models/module_purchase_category.php';
 
 $utilities = new Utilities();
 
@@ -21,6 +22,8 @@ $stmt = $purchase->readByPage($from_record_num, $obj_per_page);
 $num = $stmt->rowCount();
 
 $total_rows = $purchase->count();
+
+$category = new PurchaseCategory($db);
 
 if ( $num>0 )
 {
@@ -37,14 +40,14 @@ if ( $num>0 )
 			"store" => $store,
 			"amount" => $amount,
 			"tax" => $tax,
-			"cat_id" => $cat_id,
+			"category" => $category->getCatById($cat_id)["cat_title"],
 			"is_active" => $is_active
 			);
 
 		$p_array["purchases"][] = $purchase;
 	}
 
-	$page_url = $home_url . "purchase/read.php?";
+	$page_url = $home_url . "budget/?";
 	$paging = $utilities->getPages($page, $total_rows, $obj_per_page, $page_url);
 	$p_array["paging"] = $paging;
 

@@ -1,4 +1,4 @@
-<h1 class="display-4">My Transactions</h1>
+<h1 class="display-4">Money Expenditure Log</h1>
 
 <form method="POST">
 
