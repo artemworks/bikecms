@@ -1,5 +1,22 @@
 <h1 class="display-4">Money Expenditure Log</h1>
 
+<p>
+    <form>
+      <div class="form-row align-items-center">
+        <div class="col-sm-12">
+        <select name="month" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+          <option value="">Select...</option>
+          <?php
+            foreach ($m_list as $el) {
+              echo "<option value='" . DIR_URL . "cms/module_budget/" . date( 'm-Y', strtotime($el) ) . "'>" . $el . "</option>";
+            }
+          ?>
+        </select>
+        </div>
+      </div>
+  </form>
+</p>
+
 <form method="POST">
 
   <table class='table'>

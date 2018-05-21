@@ -1,8 +1,18 @@
 <?php
 
+if (!$action || $action == "/") {
+  $month = date('m');
+  $year = date("Y");
+} else {
+  $date = htmlentities(ltrim($action, '/'));
+  $month = DateTime::createFromFormat('m-Y', $date)->format('m');
+  $year = DateTime::createFromFormat('m-Y', $date)->format('Y');
+}
+
 require_once DIR . "models/module_purchase.php";
 $purchase = new Purchase($db);
-$transactions = $purchase->readSortedByDate();
+$transactions = $purchase->readSortedByMonthYear($month, $year);
+$m_list = $purchase->getAllMonthAndYear();
 
 if ( isset($_POST['cancel']) ) {
   $_SESSION['success'] = "Cancelled";

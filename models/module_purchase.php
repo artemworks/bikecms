@@ -30,26 +30,42 @@ class Purchase
 		return $result;
 	}
 
-  public function readSortedByMonth($monthNum)
+  public function readSortedByMonthYear($monthNum, $year)
   {
     $query = "SELECT * FROM " . $this->db_table .
-         " WHERE MONTH(trans_date) = :mth ORDER BY trans_date DESC";
+         " WHERE MONTH(trans_date) = :mth AND YEAR(trans_date) = :yer
+         ORDER BY trans_date DESC";
     $stmt = $this->connection->prepare($query);
-    $stmt->execute(array(':mth' => $monthNum));
+    $stmt->execute(array(':mth' => $monthNum, ':yer' => $year));
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
   }
 
-	public function sumAllInMonth($column, $monthNum)
+	public function sumAllInMonthYear($column, $monthNum, $year)
 	{
 		$query = "SELECT SUM(" . $column . ") as " . $column .
           " FROM " . $this->db_table .
-          " WHERE MONTH(trans_date) = :mth";
+          " WHERE MONTH(trans_date) = :mth AND YEAR(trans_date) = :yer";
 		$stmt = $this->connection->prepare($query);
-		$stmt->execute(array(':mth' => $monthNum));
+		$stmt->execute(array(':mth' => $monthNum, ':yer' => $year));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $row["{$column}"];
 	}
+
+  public function getAllMonthAndYear()
+  {
+    $query = 'SELECT DATE_FORMAT(trans_date, "%M %Y") FROM b_transactions GROUP BY DATE_FORMAT(trans_date, "%M %Y") ORDER BY trans_date DESC';
+    $stmt = $this->connection->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $arr = [];
+    foreach ($result as $row) {
+      foreach ($row as $key=>$value) {
+        $arr[] = $value;
+      }
+    }
+    return $arr;
+  }
 
 	public function getTransById($trans_id)
 	{

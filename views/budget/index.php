@@ -44,6 +44,25 @@
 		?>
 
 		</table>
+
+	<p>
+		<form>
+			<div class="form-row align-items-center">
+				<label for="selectMonth" class="col-sm-3 col-form-label">Choose month:</label>
+				<div class="col-sm-9">
+				<select name="month" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+					<option value="">Select...</option>
+				  <?php
+				    foreach ($m_list as $el) {
+				      echo "<option value='" . DIR_URL . "budget/" . date( 'm-Y', strtotime($el) ) . "'>" . $el . "</option>";
+				    }
+				  ?>
+				</select>
+				</div>
+			</div>
+	</form>
+	</p>
+
 	</div>
 	<div class="col-md-6 col-xs-12">
 		  <div id="myPie1"></div>
@@ -74,3 +93,4 @@
 		  </script>
 	</div>
 </div>
+

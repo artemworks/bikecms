@@ -103,7 +103,7 @@ switch ($controller) {
 */
 
   case 'module_budget':
-    if ( $action === "/" || $action === "")
+    if ( $action === "/" || $action === "" || preg_match('/([0-9]{1,2})-(([2000-3000]{1,2}))/', $action) )
     {
       require_once "./controllers/module_budget/view.php";
     }
