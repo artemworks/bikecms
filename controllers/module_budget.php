@@ -4,11 +4,14 @@ require_once "./models/section.php";
 $section = new Section($db);
 $sections = $section->readAll();
 
+$monthNum = date("m");
+$monthStr = date("M");
+
 require_once "./models/module_purchase.php";
 $purchase = new Purchase($db);
-$transactions = $purchase->readSortedByDate();
-$sum_amount = $purchase->sumAll("amount");
-$sum_tax = $purchase->sumAll("tax");
+$transactions = $purchase->readSortedByMonth($monthNum);
+$sum_amount = $purchase->sumAllInMonth("amount", $monthNum);
+$sum_tax = $purchase->sumAllInMonth("tax", $monthNum);
 
 require_once "./models/module_budget_chart.php";
 $chart = new Chart($db);

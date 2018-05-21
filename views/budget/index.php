@@ -1,15 +1,12 @@
 <div class="row">
 	<div class="col-md-6 col-xs-12">
 		<p>
-			Total expenses: $
+			Total expenses in <?= $monthStr ?>: $
 			<b><?= number_format($sum_amount, 2, ".", " ") ?></b>
 			total HST: $
 			<b> <?=number_format($sum_tax, 2, ".", " ") ?></b>
 		</p>
 
-		<p>
-			Transactions:
-		</p>
 
 		<table class="table-budget table-bordered">
 		<thead>

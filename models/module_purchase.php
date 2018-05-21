@@ -30,21 +30,23 @@ class Purchase
 		return $result;
 	}
 
-  public function readSortedByDate()
+  public function readSortedByMonth($monthNum)
   {
     $query = "SELECT * FROM " . $this->db_table .
-         " ORDER BY trans_date DESC";
+         " WHERE MONTH(trans_date) = :mth ORDER BY trans_date DESC";
     $stmt = $this->connection->prepare($query);
-    $stmt->execute();
+    $stmt->execute(array(':mth' => $monthNum));
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
   }
 
-	public function sumAll($column)
+	public function sumAllInMonth($column, $monthNum)
 	{
-		$query = "SELECT SUM(" . $column . ") as " . $column . " FROM " . $this->db_table;
+		$query = "SELECT SUM(" . $column . ") as " . $column .
+          " FROM " . $this->db_table .
+          " WHERE MONTH(trans_date) = :mth";
 		$stmt = $this->connection->prepare($query);
-		$stmt->execute();
+		$stmt->execute(array(':mth' => $monthNum));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $row["{$column}"];
 	}
