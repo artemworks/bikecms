@@ -46,5 +46,5 @@
 </p>
 
 <p>
-  More information <a href="<?= $event_content["event_link"] ?>" target="_blank">here</a>.
+  <a class="btn btn-outline-primary" href="<?= $event_content["event_link"] ?>" role="button" target="_blank">Learn More</a>
 </p>

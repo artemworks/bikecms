@@ -11,7 +11,7 @@ if (!$action || $action == "/") {
 } else {
   $date = htmlentities(ltrim($action, '/'));
   $monthNum = DateTime::createFromFormat('m-Y', $date)->format('m');
-  $monthStr = DateTime::createFromFormat('m-Y', $date)->format('M');
+  $monthStr = DateTime::createFromFormat('m-Y', $date)->format('F');
   $year = DateTime::createFromFormat('m-Y', $date)->format('Y');
 }
 
