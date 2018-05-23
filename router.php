@@ -63,6 +63,18 @@ switch ($controller) {
 		break;
 
 /*
+	This day in life
+*/
+
+	case 'day':
+		if ( ! $action || $action == "/" ) {
+			require_once "./controllers/day.php";
+		} else if ( $action ) {
+			require_once "./controllers/day.php";
+		}
+		break;
+
+/*
 	Default
 */
 

@@ -78,6 +78,15 @@ class Article
 		return $result;
 	}
 
+  public function getArticlesByDate($date)
+  {
+
+    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE posted = :dt");
+    $stmt->execute(array(':dt' => $date));
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
 	public function getArticleById($article_id)
 	{
 		$stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE article_id = :aid LIMIT 1");

@@ -95,6 +95,15 @@ class Calendar
     return $result;
   }
 
+  public function getEventsByDate($date)
+  {
+
+    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE event_datetime = :dt");
+    $stmt->execute(array(':dt' => $date));
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
 	public function getCatById($event_id)
 	{
 		$stmt = $this->connection->prepare("SELECT *

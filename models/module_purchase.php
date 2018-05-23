@@ -75,6 +75,15 @@ class Purchase
 		return $result;
 	}
 
+  public function getPurchasesByDate($date)
+  {
+
+    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE trans_date = :dt");
+    $stmt->execute(array(':dt' => $date));
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
 	public function getCatById($trans_id)
 	{
 		$stmt = $this->connection->prepare("SELECT *
