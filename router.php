@@ -68,7 +68,7 @@ switch ($controller) {
 
 	case 'day':
 		if ( ! $action || $action == "/" ) {
-			require_once "./controllers/day.php";
+			require_once "./controllers/day_current.php";
 		} else if ( $action ) {
 			require_once "./controllers/day.php";
 		}

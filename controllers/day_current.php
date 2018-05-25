@@ -4,7 +4,7 @@ require_once "./models/section.php";
 $section = new Section($db);
 $sections = $section->readAll();
 
-$today = DateTime::createFromFormat('Y-m-d', htmlentities(ltrim($action, '/')))->format('Y-m-d');
+$today = date('Y-m-d');
 
 require_once "./models/article.php";
 $article = new Article($db);

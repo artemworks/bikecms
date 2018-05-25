@@ -98,7 +98,7 @@ class Calendar
   public function getEventsByDate($date)
   {
 
-    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE event_datetime = :dt");
+    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE DATE_FORMAT(event_datetime, '%y-%m-%d') = DATE_FORMAT(:dt,'%y-%m-%d')");
     $stmt->execute(array(':dt' => $date));
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;

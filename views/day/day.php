@@ -36,7 +36,7 @@ if ( !empty($events_td) ) {
 
     if ( $e["is_active"] ) {
 
-      echo "<p><a href=" . DIR_URL . "event/" .
+      echo "<p><a href=" . DIR_URL . "calendar/" .
             htmlentities($e["event_title_url"]) . ">" .
             htmlentities($e["event_title"]) . "</a></p>";
 

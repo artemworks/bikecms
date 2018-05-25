@@ -78,7 +78,7 @@ class Purchase
   public function getPurchasesByDate($date)
   {
 
-    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE trans_date = :dt");
+    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE DATE_FORMAT(trans_date, '%y-%m-%d') = DATE_FORMAT(:dt,'%y-%m-%d')");
     $stmt->execute(array(':dt' => $date));
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;

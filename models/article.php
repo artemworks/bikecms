@@ -81,7 +81,7 @@ class Article
   public function getArticlesByDate($date)
   {
 
-    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE posted = :dt");
+    $stmt = $this->connection->prepare("SELECT * FROM " . $this->db_table . " WHERE DATE_FORMAT(posted, '%y-%m-%d') = DATE_FORMAT(:dt,'%y-%m-%d')");
     $stmt->execute(array(':dt' => $date));
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
