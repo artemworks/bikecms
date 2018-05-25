@@ -77,8 +77,18 @@
 		          text: "Breakdown by Store"
 		        }
 		      },
+		      labels: {
+		      	inner: {
+		      		format: "none"
+		      	}
+		      },
 		      data: {
 		        content: <?= json_encode($pie1, JSON_NUMERIC_CHECK) ?>
+		      },
+		      tooltips: {
+		      	enabled: true,
+		      	type: "placeholder",
+		      	string: "{label}, $ {value}"
 		      }
 		    });
 		    var pie2 = new d3pie("myPie2", {
