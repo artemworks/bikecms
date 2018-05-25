@@ -97,8 +97,18 @@
 		          text: "Breakdown by Category"
 		        }
 		      },
+		      labels: {
+		      	inner: {
+		      		format: "none"
+		      	}
+		      },
 		      data: {
 		        content: <?= json_encode($pie2, JSON_NUMERIC_CHECK) ?>
+		      },
+		      tooltips: {
+		      	enabled: true,
+		      	type: "placeholder",
+		      	string: "{label}, $ {value}"
 		      }
 		    });
 		  </script>
