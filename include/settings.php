@@ -5,6 +5,8 @@ ini_set('display_errors', '1');
 
 // change this
 
+date_default_timezone_set('America/Toronto');
+
 define("DIR", "/Users/artadmin/Desktop/git/bikecms/");
 define("DIR_IMG", "/Users/artadmin/Desktop/git/bikecms/images/");
 
