@@ -1,5 +1,5 @@
 <p>
-  Today is <?= $today ?>
+  Today is <b><?= $today ?></b>
 </p>
 
 <?php

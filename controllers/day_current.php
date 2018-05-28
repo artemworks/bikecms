@@ -4,7 +4,7 @@ require_once "./models/section.php";
 $section = new Section($db);
 $sections = $section->readAll();
 
-$today = date('Y-m-d');
+$today = date('M d, Y');
 
 require_once "./models/article.php";
 $article = new Article($db);
