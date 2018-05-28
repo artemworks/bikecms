@@ -6,7 +6,7 @@ $sections = $section->readAll();
 
 require_once "./models/module_calendar.php";
 $event = new Calendar($db);
-$events = $event->readAll();
+$events = $event->readAllFuture();
 
 require_once "./views/header.php";
 require_once "./views/calendar/events.php";

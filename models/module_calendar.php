@@ -32,6 +32,16 @@ class Calendar
 		return $result;
 	}
 
+  public function readAllFuture()
+  {
+    $query = "SELECT * FROM " . $this->db_table .
+         " WHERE event_datetime >= CURDATE()";
+    $stmt = $this->connection->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
   public function readAllSortedByDate()
   {
     $query = "SELECT * FROM " . $this->db_table . " ORDER BY event_datetime DESC";
