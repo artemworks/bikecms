@@ -77,7 +77,7 @@
           countTag++;
           $('#tag_fields').append(
             '<div id="positionTag'+countTag+'"> \
-            Tag: <select class="form-control" name="tag_id'+countTag+'"><?php $tags = $tag->readAll(); foreach ( $tags as $tag ) { ?>
+            Tag: <select class="form-control" name="tag_id'+countTag+'"><?php foreach ( $tags as $tag ) { ?>
             <option value="<?= $tag["tag_id"] ?>"><?= $tag["name"] ?></option><?php } ?></select><input type="button" value="-" \
             onclick="$(\'#positionTag'+countTag+'\').remove(); return false;"> \
             </div>');
@@ -91,7 +91,7 @@
           countSection++;
           $('#section_fields').append(
             '<div id="positionSection'+countSection+'"> \
-            Section: <select class="form-control" name="section_id'+countSection+'"><?php $sections = $section->readAll(); foreach ( $sections as $section ) { ?>
+            Section: <select class="form-control" name="section_id'+countSection+'"><?php foreach ( $sections as $section ) { ?>
             <option value="<?= $section["section_id"] ?>"><?= $section["name"] ?></option><?php } ?></select><input type="button" value="-" \
             onclick="$(\'#positionSection'+countSection+'\').remove(); return false;"> \
             </div>');
@@ -99,6 +99,5 @@
       });
     </script>
     <?php } ?>
-
   </body>
 </html>
