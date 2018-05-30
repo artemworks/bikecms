@@ -45,16 +45,15 @@ if ( isset($_POST['email']) )
 			$message = "Hi! " . $link;
 			$message = wordwrap($message, 70);
 
-			// Edit this line
-			$from = "";
+			$from = ""; // Edit this line
 			$headers = "From: " . $from;
-/*
+
 			$result = mail($to, $subject, $message, $headers);
-*/
+
 			if( $result )
 			{
 				$_SESSION['success'] = "Email with password was successfully sent to you";
-				$utility->redirect_to( DIR_URL );
+				$utility->redirect_to( DIR_URL . "login" );
 			}
 			else
 			{
