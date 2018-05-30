@@ -18,7 +18,7 @@ if ( isset($_SESSION["name"]) )
 
 if ( isset($_POST['cancel']) )
 {
-	$_SESSION['success'] = "Restoration cancelled";
+	$_SESSION['success'] = "Recovery cancelled";
 	$utility->redirect_to( DIR_URL );
 }
 
@@ -38,14 +38,14 @@ if ( isset($_POST['email']) )
 
 			$md_user_email = md5($user_email);
 			$md_pass_db = md5($pass_db);
-			$link = "<a href=" . DIR_URL . "reset/" . $md_user_email . "." . $md_pass_db . ">Click here to reset your password</a>";
+			$link = DIR_URL . "reset/" . $md_user_email . "." . $md_pass_db;
 
-			$to = $user_name . "<" . $user_email . ">";
+			$to = $user_email;
 			$subject = "Someone has requested your password for " . CMS_TITLE . " at " . strftime("%T", time());
-			$message = "Hi! " . $link;
+			$message = "Hi! Follow this link to reset your password: " . $link;
 			$message = wordwrap($message, 70);
 
-			$from = ""; // Edit this line
+			$from = "your@email.com"; // Change this line
 			$headers = "From: " . $from;
 
 			$result = mail($to, $subject, $message, $headers);
