@@ -22,6 +22,14 @@ switch ($controller) {
 		require_once "./controllers/logout.php";
 		break;
 
+	case 'forgot':
+		require_once "./controllers/forgot.php";
+		break;
+
+	case 'reset':
+		require_once "./controllers/reset.php";
+		break;
+
 	case 'articles':
 		if ( ! $action || $action == "/" ) {
 			require_once "./controllers/articles.php";

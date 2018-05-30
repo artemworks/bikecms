@@ -9,7 +9,8 @@
 					  <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
 					  <input class="form-control" name="pass" type="password" placeholder="Pass" />
 					</div>
-				<input type="submit" class="btn btn-outline-primary" name="submit" value="Log In" />
-				<input type="submit" class="btn btn-outline-secondary" name="cancel" value="Cancel" />
+						<input type="submit" class="btn btn-outline-primary" name="submit" value="Log In" />
+						<input type="submit" class="btn btn-outline-secondary" name="cancel" value="Cancel" />
+						<small id="passwordHelpInline" class="text-muted"><a href="<?= DIR_URL ?>forgot">Forgot password?</a></small>
 				</form>
 				</div></div>
