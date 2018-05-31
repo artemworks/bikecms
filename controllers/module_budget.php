@@ -10,9 +10,9 @@ if (!$action || $action == "/") {
   $year = date("Y");
 } else {
   $date = htmlentities(ltrim($action, '/'));
-  $monthNum = DateTime::createFromFormat('m-Y', $date)->format('m');
-  $monthStr = DateTime::createFromFormat('m-Y', $date)->format('F');
-  $year = DateTime::createFromFormat('m-Y', $date)->format('Y');
+  $monthNum = explode("-", $date)[0];
+  $monthStr = DateTime::createFromFormat('m', $monthNum)->format('F');
+  $year = explode("-", $date)[1];
 }
 
 require_once "./models/module_purchase.php";
@@ -21,6 +21,9 @@ $transactions = $purchase->readSortedByMonthYear($monthNum, $year);
 $sum_amount = $purchase->sumAllInMonthYear("amount", $monthNum, $year);
 $sum_tax = $purchase->sumAllInMonthYear("tax", $monthNum, $year);
 $m_list = $purchase->getAllMonthAndYear();
+
+require_once "./models/module_purchase_category.php";
+$purchase_cat = new PurchaseCategory($db);
 
 require_once "./models/module_budget_chart.php";
 $chart = new Chart($db);

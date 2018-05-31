@@ -5,8 +5,8 @@ if (!$action || $action == "/") {
   $year = date("Y");
 } else {
   $date = htmlentities(ltrim($action, '/'));
-  $month = DateTime::createFromFormat('m-Y', $date)->format('m');
-  $year = DateTime::createFromFormat('m-Y', $date)->format('Y');
+  $month = explode("-", $date)[0];
+  $year = explode("-", $date)[1];
 }
 
 require_once DIR . "models/module_purchase.php";
