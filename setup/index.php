@@ -32,7 +32,7 @@ $sql[] = "CREATE TABLE section (
 	name					VARCHAR(255)    NOT NULL DEFAULT '',
 	page					VARCHAR(255)    NOT NULL DEFAULT '',
 	title 				VARCHAR(255)    NOT NULL DEFAULT '',
-	description		VARCHAR(255)    NOT NULL DEFAULT '',
+	description		LONGTEXT    		NOT NULL DEFAULT '',
 	rank					VARCHAR(64)     NOT NULL DEFAULT '',
 	is_active 		TINYINT(1)      NOT NULL DEFAULT '0',
 	PRIMARY KEY (section_id)

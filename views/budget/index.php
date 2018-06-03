@@ -20,9 +20,8 @@
 		</p>
 
 		<p>
-			Total expenses: $
-			<b><span class="badge badge-secondary" style="font-size: 1.1em;"><?= number_format($sum_amount, 2, ".", ",") ?></span></b>
-			total HST: $
+			Total household expenses for <b><?= $monthStr . ", " . $year ?> </b>: $
+			<b><span class="badge badge-secondary" style="font-size: 1.1em;"><?= number_format($sum_amount, 2, ".", ",") ?></span></b>, incl. HST: $
 			<b><span class="badge badge-secondary" style="font-size: 1.1em;"><?=number_format($sum_tax, 2, ".", ",") ?></span></b>
 		</p>
 
