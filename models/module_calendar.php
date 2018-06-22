@@ -35,7 +35,7 @@ class Calendar
   public function readAllFuture()
   {
     $query = "SELECT * FROM " . $this->db_table .
-         " WHERE event_datetime >= CURDATE()";
+         " WHERE event_datetime >= CURDATE() ORDER BY event_datetime ASC";
     $stmt = $this->connection->prepare($query);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
